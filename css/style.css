@@ -16,8 +16,6 @@ Primary use:	One page
 
 -------------------------------------------------------------------*/
 
-<style> <?php include 'style.css'; ?>
-
 /*--------------------
 Google Fonts
 --------------------*/
@@ -674,4 +672,3 @@ and (max-width : 480px) {
     font-size: 20px;
 }
 }
-</style>
