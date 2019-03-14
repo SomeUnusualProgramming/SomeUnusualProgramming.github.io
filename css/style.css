@@ -12,7 +12,8 @@ Primary use:	One page
 3. Header
 4. Sections
 5. Footer
-6. Components
+6. Modal
+7. Components
 
 -------------------------------------------------------------------*/
 
@@ -542,9 +543,49 @@ footer p a span {
     font-weight: 700;
 }
 
+/*--------------------
+6. Modal
+--------------------*/
+
+.modal-content {
+	border-radius: 0;	
+}
+.modal-header .close {
+	font-size: 30px;	
+}
+.modal-title {    
+	text-transform: uppercase;
+	font-size: 23px;
+}
+
+.modal-body {
+	padding: 0;
+}
+
+.modal-body p {
+	margin: 30px 20px;
+	color: #2D2D2D;		
+}
+
+.modal-works {
+font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #fff;
+    margin: 25px 20px;
+}
+
+.modal-works span {
+	background-color: #FED136;
+    margin-right: 15px;
+    padding: 5px 10px;
+}
+
+
 
 /*--------------------
-6. Components
+7. Components
 --------------------*/
 
 .counter {
