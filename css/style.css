@@ -26,6 +26,113 @@ Google Fonts
 /* font for headings, text, tags */
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700,800);
 @import url(http://fonts.googleapis.com/css?family=Playfair+Display:400italic&subset=latin,latin-ext);
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+
+/* preloader */
+
+*{
+	box-sizing:border-box;
+}
+body{
+	margin:0;
+	padding:0;
+	font-size:16px;
+	line-height:1.5;
+}
+.fullcontainer{
+	width:100%;
+	height:auto;
+	font-family: 'Open Sans', sans-serif;
+	padding:10% 8%;
+}
+.fullcontainer h2{
+	margin:0;
+	padding:0;
+	color:#fed136;
+	font-size:2.5rem;
+	line-height:1.3;
+}
+.fullcontainer p{
+	
+}
+.loadingpage{
+	width:100vw;
+	height:100vh;
+	background:#161616;
+	font-family: 'Open Sans', sans-serif;
+	position:fixed;
+	z-index:1;
+	overflow:hidden;
+}
+.loadingpage::before{
+	content:'';
+	width:51%;
+	height:100%;
+	// background:#fed136;
+	background:#fed136;
+	position:absolute;
+	z-index:2;
+	left:0%;
+	top:0%;
+}
+.loadingpage::after{
+	content:'';
+	width:51%;
+	height:100%;
+	// background:blue;
+	background:#fed136;
+	position:absolute;
+	z-index:2;
+	right:0%;
+	top:0%;
+}
+.loadingpage .counter{
+	margin:auto;
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+	z-index:3;
+}
+.loadingpage h1{
+	margin:0;
+	padding:0;
+	// color:grey;
+	color:white;
+	font-size:5rem;
+	font-weight:bolder;
+}
+/******** when page is loaded **********/
+.pageisloaded{
+	visibility:hidden;
+	//opacity:0;
+	pointer-events:none;
+	transform:translateY(-100%);
+	transition:transform 1s 1.3s ease-out;
+}
+.pageisloaded::before{
+	content:'';
+	transform:translateX(-100%);
+	transition:all 1s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+}
+.pageisloaded::after{
+	content:'';
+	transform:translateX(100%);
+	transition:all 1s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+}
+.pageisloaded .counter{
+	opacity:0;
+	transition:all 0.3s ease-out;
+}
+@media screen and (max-width:400px){
+	.fullcontainer h2{
+		line-height:1.2;
+		font-size:1.95rem;
+	}
+	.fullcontainer p{
+		font-size:0.91rem;
+	}
+}
 
 /*--------------------
 1. General
