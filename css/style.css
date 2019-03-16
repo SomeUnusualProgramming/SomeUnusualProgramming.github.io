@@ -181,13 +181,13 @@ header {
 
 header .intro-text {
     padding-top: 100px;
-    padding-bottom: 50px;
+    padding-bottom: 80px;
 }
 
 @media (min-width: 768px) {
 	header .intro-text {
-	    padding-top: 540px;
-	    padding-bottom: 220px;
+	    padding-top: 520px;
+	    padding-bottom: 200px;
 	}
 }
 
