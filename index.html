@@ -374,19 +374,32 @@
 						<h2>
 							<font color="white">Z czego korzystasz</font>
 						</h2>
-				    </div>
-				</div>
-				<div class="col-md-5 mb-sm-30">
-					<div class="counter-item">
-
-
-						<h2 class="timer count-title count-number" data-to="10000"
-							data-speed="5000"></h2>
-						<p class="count-text ">
-						<h6>CDN</h6>
+						<div class="counter-item">
+							<h6>
+								<SCRIPT LANGUAGE="JavaScript">
+									var xy = navigator.appVersion;
+									xz = xy.substring(0, 4);
+									document
+											.write("<center><table border=0 cellpadding=2><tr>");
+									document
+											.write("<td>Twoja przeglądarka: </td><td><center>");
+									document.write(navigator.appCodeName,
+											"</td></tr>");
+									document
+											.write("<tr><td>Wersja: </td><td><center>");
+									document.write(xz, "</td></tr>");
+									document
+											.write("<tr><td>Rozdzielczość: </td><td><center>");
+									document.write(screen.width, " x ",
+											screen.height, "</td></tr>");
+									document
+											.write("</table></tr></td></table></center>");
+								</script>
+							</h6>
+						</div>
 					</div>
 				</div>
-			</div>
+            </div>
 		</div>
 	</section>
 
