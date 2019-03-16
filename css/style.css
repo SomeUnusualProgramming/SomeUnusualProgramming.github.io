@@ -91,10 +91,7 @@ section {
 .navbar-default .navbar-brand {
 	color: rgba(255,255,255,.99);
 	font-family: "Montserrat",sans-serif;
-	padding-bottom: 0;
-    padding-left: 0px;
-    padding-right: 0;
-    padding-top: 15px;
+    padding: 0px;
 }
 .navbar-default .navbar-brand:hover,.navbar-default .navbar-brand:focus,.navbar-default .navbar-brand:active,.navbar-default .navbar-brand.active {
 	color: #fed136
