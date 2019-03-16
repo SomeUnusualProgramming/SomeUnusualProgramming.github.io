@@ -505,7 +505,7 @@ figure.effect-bubba:hover p {
 .counter-item h2 {
     color: #fff;
     font-size: 65px;
-    margin: 0;
+    margin-bottom: 10px;
 }
 
 .counter-item h6 {
