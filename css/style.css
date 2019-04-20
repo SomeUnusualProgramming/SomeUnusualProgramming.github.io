@@ -81,7 +81,7 @@ section {
 }
 
 /* Clock and date  on site */
-.data  {
+#data span{
     POSITION: fixed; 
     RIGHT: 10px; 
     BOTTOM: 10px; 
