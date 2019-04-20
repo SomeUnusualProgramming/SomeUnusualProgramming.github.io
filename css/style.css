@@ -81,14 +81,14 @@ section {
 }
 
 /* Clock and date  on site */
-#data span{
-    POSITION: fixed; 
-    RIGHT: 10px; 
-    BOTTOM: 10px; 
-    FONT-SIZE: 10pt;
-    FONT-WEIGHT: bold;
-    COLOR: #ffffff;
-    FONT-FAMILY: inherit;
+#data {
+    position: fixed; 
+    right: 10px; 
+    bottom: 10px; 
+    font-size: 10pt;
+    font-weight: bold;
+    color: #ffffff;
+    font-family: inherit;
 }
 
 /*--------------------
