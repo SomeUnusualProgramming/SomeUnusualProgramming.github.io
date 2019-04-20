@@ -80,6 +80,17 @@ section {
     padding: 70px 0;
 }
 
+/* Clock and date  on site */
+.data  {
+    POSITION: fixed; 
+    RIGHT: 10px; 
+    BOTTOM: 10px; 
+    FONT-SIZE: 10pt;
+    FONT-WEIGHT: bold;
+    COLOR: #ffffff;
+    FONT-FAMILY: inherit;
+}
+
 /*--------------------
 2. Navigation
 --------------------*/
