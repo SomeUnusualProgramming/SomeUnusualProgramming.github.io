@@ -1,11 +1,4 @@
 /*------------------------------------------------------------------
-Project:	Portfolio
-Version:	1.0
-Last change:	12/03/2019
-Made by:	Adam Swierkosz
-Primary use:	One page
-
-[Table of contents]
 
 1. General
 2. Navigation
@@ -252,6 +245,7 @@ header .intro-text .intro-heading {
     font-weight: 300;
     line-height: 25px;
     margin: 20px 100px 100px 100px;
+    margin-bottom: 10px;
 }
 
 /*--------------------
@@ -360,7 +354,7 @@ margin: 0;
 figure {
 	position: relative;
     overflow: hidden;
-    margin: 10px 1%;
+    margin: 0px 3%;
     background: #726FB9;
     text-align: center;
     cursor: pointer;	
@@ -408,7 +402,7 @@ figure.effect-bubba:hover img {
 figure.effect-bubba figcaption::before,
 figure.effect-bubba figcaption::after {
 	position: absolute;
-	top: 40px;
+	top: 50px;
 	right: 40px;
 	bottom: 40px;
 	left: 40px;
