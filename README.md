@@ -1,3 +1,6 @@
 # SomeUnusualProgramming.github.io
 
-Mój pierwszy projekt strony internetowej z użyciem HTML, CSS i JavaScript.
+My portfolio and my first project at the same time. Use the link to navigate to this website.
+
+https://someunusualprogramming.github.io/
+
