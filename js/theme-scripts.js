@@ -1,3 +1,25 @@
+
+function navigator() {
+
+	var xy = navigator.appVersion;
+	xz = xy.substring(0, 4);
+	document
+			.write("<center><table border=0 cellpadding=2><tr>");
+	document
+			.write("<td>Twoja przeglądarka: </td><td><center>");
+	document.write(navigator.appCodeName,
+			"</td></tr>");
+	document
+			.write("<tr><td>Wersja: </td><td><center>");
+	document.write(xz, "</td></tr>");
+	document
+			.write("<tr><td>Rozdzielczość: </td><td><center>");
+	document.write(screen.width, " x ",
+			screen.height, "</td></tr>");
+	document
+			.write("</table></tr></td></table></center>");
+}
+
 $(window).scroll(function() {
 	if ($(document).scrollTop() > 150) {
 		$('.navbar').addClass('navbar-shrink');
