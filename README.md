@@ -1,6 +1,5 @@
 # SomeUnusualProgramming.github.io
 
-My portfolio and my first project at the same time. Use the link to navigate to this website.
-
-https://someunusualprogramming.github.io/
+Nowoczesne portfolio zawodowe prezentujące moje doświadczenie w pracy z systemami biznesowymi, integracjami i projektami technicznymi.  
+Strona jest dostępna pod adresem: https://someunusualprogramming.github.io/
 
