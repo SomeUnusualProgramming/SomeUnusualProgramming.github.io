@@ -1,500 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pl">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Portfolio zawodowe - Adam Świerkosz">
     <title>Adam Świerkosz - Portfolio</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Font awesome-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-    <!-- Custom styles -->
-    <link href="css/owl.carousel.css" rel="stylesheet">
-    <link href="css/owl.theme.default.min.css"  rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
 </head>
+<body>
+    <div class="bg-orb bg-orb-one" aria-hidden="true"></div>
+    <div class="bg-orb bg-orb-two" aria-hidden="true"></div>
 
-<!-- Date & Clock -->
-<body onLoad="czas()">
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <a class="brand" href="#top">Adam Świerkosz</a>
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="#about">O mnie</a></li>
+                    <li><a href="#skills">Kompetencje</a></li>
+                    <li><a href="#projects">Projekty</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <span id="Data"></span>
-
-	<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="container">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header page-scroll">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand page-scroll" href="#page-top">Adam Świerkosz</a>
-				</div>
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="hidden">
-							<a href="#page-top"></a>
-					<li><a class="page-scroll" href="#about">O mnie</a></li>
-
-					<li><a class="page-scroll" href="#portfolio">Portfolio</a></li>
-
-					<li><a class="page-scroll" href="#contact">Kontakt</a></li>
-					</ul>
-				</div>
-				<!-- /.navbar-collapse -->
-			</div>
-			<!-- /.container-fluid -->
-		</nav>
-
-<!-- Header -->
-	<header>
-		<div class="container">
-			<div class="slider-container">
-				<div class="intro-text">
-					<div class="intro-lead-in">Witaj na mojej stronie!</div>
-					<div class="intro-heading">Dobrze Cię widzieć</div>
-					<a href="#about" class="page-scroll btn btn-xl">Zaczynamy!</a>
-				</div>
-			</div>
-		</div>
-	</header>
-	<section id="about" class="light-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<div class="section-title">
-						<h2>O mnie</h2>
-						<p>Jestem logistykiem z zamiłowaniem do informatyki. Od lat interesuję się sprzętem komputerowym, systemami informatycznymi
-							i nowinkami technologicznymi. Posiadam praktyczną
-							wiedzę z zakresu języków Java i HTML oraz relacyjnych baz danych, którą
-							na co dzień poszerzam ucząc się języka JavaScript jak również obsługi wielu narzędzi.</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<!-- about module -->
-				<div class="col-md-3 text-center">
-					<div class="mz-module-about">
-						<i class="fa fa-briefcase ot-circle"></i> <i
-							class="fa fa-desktop ot-circle"></i>
-						<h3>Web Development</h3>
-						<p>Tworzenie złożonych aplikacji internetowych oraz serwisów
-							za pomocą Java EE</p>
-					</div>
-				</div>
-				<!-- end about module -->
-				<!-- about module -->
-				<div class="col-md-3 text-center">
-					<div class="mz-module-about">
-						<i class="fa fa-photo ot-circle"></i>
-						<h3>Visualisation</h3>
-						<p>
-							Projektowanie dokumentów za pomocą języka HTML przy użyciu stylów
-							CSS <br> oraz języka skryptowego JavaScript
-						</p>
-					</div>
-				</div>
-				<!-- end about module -->
-				<!-- about module -->
-				<div class="col-md-3 text-center">
-					<div class="mz-module-about">
-						<i class="fa fa-linux ot-circle"></i> <i
-							class="fa fa-windows ot-circle"></i>
-
-						<h3>environment</h3>
-						<p>Zastosowanie systemów operacyjnych Windows oraz Linux</p>
-					</div>
-				</div>
-				<!-- end about module -->
-				<!-- about module -->
-				<div class="col-md-3 text-center">
-					<div class="mz-module-about">
-						<i class="fa fa-database ot-circle"></i>
-
-						<h3>Databases</h3>
-						<p>Komunikacja z bazami danych za pomocą języka wysokiego
-							poziomu SQL</p>
-					</div>
-				</div>
-				<!-- end about module -->
-			</div>
-		</div>
-		<!-- /.container -->
-	</section>
-
-	<section>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6">
-					<div class="skills-text">
-						<h2>CIEKAWOŚĆ</h2>
-						<p>
-							Cecha, która wspaniale opisuje przyjęte przeze mnie podejście do programowania. <br> <br>
-
-                            Poznawanie kolejnych języków i narzędzi sprawiają, że świat programistyczny staje się jeszcze ciekawszy.
-                        </p>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<!-- skill bar item -->
-					<div class="skillbar-item">
-
-						<div class="skillbar" data-percent="60%">
-							<h3>Java</h3>
-							<div class="skillbar-bar">
-								<div class="skillbar-percent" style="width: 60%;"></div>
-							</div>
-						</div>
-					</div>
-					<!-- skill bar item -->
-					<div class="skillbar-item">
-
-						<div class="skillbar" data-percent="60%">
-							<h3>SQL</h3>
-							<div class="skillbar-bar">
-								<div class="skillbar-percent" style="width: 40%;"></div>
-							</div>
-						</div>
-					</div>
-					<!-- skill bar item -->
-					<div class="skillbar-item">
-
-						<div class="skillbar" data-percent="50%">
-							<h3>HTML</h3>
-							<div class="skillbar-bar">
-								<div class="skillbar-percent" style="width: 50%;"></div>
-							</div>
-						</div>
-					</div>
-					<!-- skill bar item -->
-					<div class="skillbar-item">
-
-						<div class="skillbar" data-percent="30%">
-							<h3>JavaScript</h3>
-							<div class="skillbar-bar">
-								<div class="skillbar-percent" style="width: 30%;"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<section id="portfolio" class="light-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<div class="section-title">
-						<h2>Portfolio</h2>
-                        <p>Najlepszy sposób aby pokazać Ci moją pracę<br>
-                            Zajrzyj również na mój profil <a href="https://codepen.io/SomeUnusualProgramming/#">Codepen</a>, aby zobaczyć projekty wykonane w edytorze online</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<!-- start portfolio item -->
-				<div class="col-md-6">
-					<div class="ot-portfolio-item">
-						<figure class="effect-bubba">
-							<img src="images/demo/portfolio-1.jpg" alt="img02"
-								class="img-responsive" />
-							<figcaption>
-								<!-- Heading place <h2></h2> -->
-								<p>HTML, CSS, JavaScript</p>
-								<a href="#" data-toggle="modal" data-target="#Modal-1">View
-									more</a>
-							</figcaption>
-						</figure>
-					</div>
-				</div>
-				<!-- end portfolio item -->
-				<!-- start portfolio item -->
-				<div class="col-md-6">
-					<div class="ot-portfolio-item">
-						<figure class="effect-bubba">
-							<img src="images/demo/portfolio-2.jpg" alt="img02"
-								class="img-responsive" />
-							<figcaption>
-								<!-- Heading place <h2></h2> -->
-								<p>Java, HTML, SQL</p>
-								<a href="#" data-toggle="modal" data-target="#Modal-2">View
-									more</a>
-							</figcaption>
-						</figure>
-					</div>
-				</div>
-				<!-- end portfolio item -->
-                <!-- start portfolio item -->
-				<div class="col-md-6">
-					<div class="ot-portfolio-item">
-						<figure class="effect-bubba">
-							<img src="images/demo/portfolio-5.jpg" alt="img02"
-								class="img-responsive" />
-							<figcaption>
-								<!-- Heading place <h2></h2> -->
-								<p>HTML, CSS, JavaScript</p>
-								<a href="#" data-toggle="modal" data-target="#Modal-3">View
-									more</a>
-							</figcaption>
-						</figure>
-					</div>
-				</div>
-				<!-- end portfolio item -->
-                <!-- start portfolio item -->
-				<div class="col-md-6">
-					<div class="ot-portfolio-item">
-						<figure class="effect-bubba">
-							<img src="images/demo/portfolio-3.jpg" alt="img02"
-								class="img-responsive" />
-							<figcaption>
-								<!-- Heading place <h2></h2> -->
-								<p></p>
-								<a href="#" data-toggle="modal" data-target="#Modal-4">View
-									more</a>
-							</figcaption>
-						</figure>
-					</div>
-				</div>
-				<!-- end portfolio item -->
-			</div>
-		</div>
-		<!-- end container -->
-	</section>
-
-	<section class="overlay-dark bg-img1 dark-bg short-section">
-		<div class="container text-center">
-			<div class="row">
-
-					<div class="counter-item">
-						<h2>
-							<font color="white">Z czego korzystasz</font>
-						</h2>
-						<div class="counter-item">
-							<h6>
-								<script LANGUAGE="JavaScript">
-									var xy = navigator.appVersion;
-									xz = xy.substring(0, 4);
-									document
-											.write("<center><table border=0 cellpadding=2><tr>");
-									document
-											.write("<td>Twoja przeglądarka: </td><td><center>");
-									document.write(navigator.appCodeName,
-											"</td></tr>");
-									document
-											.write("<tr><td>Wersja: </td><td><center>");
-									document.write(xz, "</td></tr>");
-									document
-											.write("<tr><td>Rozdzielczość: </td><td><center>");
-									document.write(screen.width, " x ",
-											screen.height, "</td></tr>");
-									document
-											.write("</table></tr></td></table></center>");
-								</script>
-							</h6>
-						</div>
-					</div>
-
+    <main id="top">
+        <section class="hero container">
+            <p class="eyebrow">Portfolio zawodowe</p>
+            <h1>Wdrażam i rozwijam systemy biznesowe, łącząc solidny backend z praktycznym podejściem do potrzeb klienta.</h1>
+            <p class="lead">
+                Pracuję end-to-end: od analizy wymagań i zaprojektowania rozwiązania, przez implementację i testy, po stabilne uruchomienie na produkcji.
+            </p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="#projects">Zobacz projekty</a>
+                <a class="btn btn-secondary" href="#contact">Skontaktuj się</a>
             </div>
-		</div>
-	</section>
+        </section>
 
-	<section id="contact">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<div class="section-title">
-						<h2>Skontaktuj się ze mną</h2>
-						<p>
-							Jeżeli masz jakieś pytania lub potrzebujesz pomocy. Zapraszam do
-							kontaktu!<br>Znajdziesz mnie na serwisach spoełcznościowych
-							takich jak GitHub czy LinkedIn
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
+        <section id="about" class="container section">
+            <div class="section-head">
+                <h2>O mnie</h2>
+            </div>
+            <div class="about-grid">
+                <article class="card">
+                    <h3>5+ lat odpowiedzialności produkcyjnej</h3>
+                    <p>Dowożę zmiany na systemach, które działają na co dzień w firmach i bezpośrednio wspierają procesy biznesowe.</p>
+                </article>
+                <article class="card">
+                    <h3>Technika + zrozumienie biznesu</h3>
+                    <p>Łączę pracę developerską i konfiguracyjną z rozmową z klientem, analizą wymagań i wsparciem po wdrożeniu.</p>
+                </article>
+                <article class="card">
+                    <h3>Skupienie na efekcie</h3>
+                    <p>Liczy się dla mnie stabilność, czytelność rozwiązania i realny wpływ na codzienną pracę użytkowników.</p>
+                </article>
+            </div>
+        </section>
 
-				<div class="col-md-5">
-					<form action="https://github.com/SomeUnusualProgramming" target="_blank">
-						<span style="font-size: 2em; color: #fec503;">
+        <section id="skills" class="container section">
+            <div class="section-head">
+                <h2>Kompetencje</h2>
+            </div>
+            <div class="capability-grid">
+                <div class="capability-item">
+                    <h3>Implementacja logiki biznesowej</h3>
+                    <p>Projektowanie i rozwój logiki systemowej dla procesów biznesowych.</p>
+                </div>
+                <div class="capability-item">
+                    <h3>Integracje i przepływ danych</h3>
+                    <p>Integracje REST API, mapowanie danych i dbanie o spójność między systemami.</p>
+                </div>
+                <div class="capability-item">
+                    <h3>Wdrożenie systemów i konfiguracja</h3>
+                    <p>Konfiguracja modułów, testy, uruchomienia i wsparcie po wdrożeniu.</p>
+                </div>
+                <div class="capability-item">
+                    <h3>Analiza i rozwiązywanie problemów</h3>
+                    <p>Debugowanie, analiza błędów i szybkie stabilizowanie środowisk produkcyjnych.</p>
+                </div>
+            </div>
 
-							<button type="submit" style="border: 0; background: none;"
-								class="fa fa-fw fa-github fa-3x" aria-hidden="true"></button>
+            <div class="section-head stack-head">
+                <h2>Technologie i narzędzia</h2>
+            </div>
+            <div id="tech-space" class="tech-space" aria-label="Technologie i narzędzia"></div>
+        </section>
 
-						</span>
-					</form>
-				</div>
+        <section id="projects" class="container section">
+            <div class="section-head">
+                <h2>Wybrane projekty</h2>
+                <p>Realizacje związane z backendem, integracjami i wdrożeniami systemów biznesowych.</p>
+            </div>
+            <div id="portfolio-list" class="projects-grid"></div>
+        </section>
 
-				<div class="col-md-5">
-					<form
-						action="https://www.linkedin.com/in/adam-%C5%9Bwierkosz-3520b2162/" target="_blank">
-						<span style="font-size: 2em; color: #fec503;">
-							<button type="submit" style="border: 0; background: none;"
-								class="fa fa-linkedin fa-3x" aria-hidden="true"></button>
-						</span>
-					</form>
-				</div>
-				<div class="col-md-1">
-					<form action="mailto:swierkosz.adam@gmail.com" target="_blank">
-						<span style="font-size: 2em; color: #fec503;">
-							<button type="submit" style="border: 0; background: none;"
-								class="fa fa-envelope fa-3x" aria-hidden="true"></button>
-						</span>
-					</form>
-				</div>
+        <section id="companies" class="container section">
+            <div class="section-head">
+                <h2>Firmy, w których realizowałem projekty</h2>
+            </div>
+            <div id="company-logos" class="logo-grid" aria-label="Firmy i organizacje"></div>
 
-			</div>
-		</div>
-	</section>
+            <div class="section-head stack-head">
+                <h2>Firmy, z którymi współpracowałem</h2>
+            </div>
+            <div id="partner-logos" class="logo-grid" aria-label="Firmy i projekty"></div>
+        </section>
 
-	<p id="back-top">
-		<a href="#top"><i class="fa fa-angle-up"></i></a>
-	</p>
+        <section id="contact" class="container section contact">
+            <div class="contact-card">
+                <h2>Skontaktuj się ze mną</h2>
+                <p>Jeśli szukasz osoby, która dowozi rozwiązania techniczne i jednocześnie rozumie potrzeby biznesowe, zapraszam do kontaktu.</p>
+                <div class="contact-links">
+                    <a href="https://github.com/SomeUnusualProgramming" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://www.linkedin.com/in/adam-%C5%9Bwierkosz-3520b2162/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="mailto:swierkosz.adam@gmail.com">E-mail</a>
+                </div>
+            </div>
+        </section>
+    </main>
 
+    <footer class="site-footer">
+        <div class="container">
+            <p>© <span id="current-year"></span> Adam Świerkosz. Wszystkie prawa zastrzeżone.</p>
+        </div>
+    </footer>
 
-    <!-- Footer -->
-	<footer>
-
-		<div class="container text-center">
-			<p>
-				© All Rights Reserved | Created by: Adam Swierkosz
-			</p>
-		</div>
-	</footer>
-
-	<!-- Modal for portfolio item 1 -->
-	<div class="modal fade" id="Modal-1" tabindex="-1" role="dialog"
-		aria-labelledby="Modal-label-1">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="Modal-label-1">Portfolio</h4>
-				</div>
-				<div class="modal-body">
-					<img src="images/demo/portfolio-1.jpg" alt="img01"
-						class="img-responsive" />
-					<div class="modal-works">
-						<span>HTML</span><span>CSS</span><span>JavaScript</span>
-					</div>
-					<p>Moje portfolio napisane w języku HTML z użyciem stylów CSS i języka sktryptowego.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal for portfolio item 2 -->
-	<div class="modal fade" id="Modal-2" tabindex="-1" role="dialog"
-		aria-labelledby="Modal-label-2">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="Modal-label-2">RESTful Web Service</h4>
-				</div>
-				<div class="modal-body">
-					<img src="images/demo/portfolio-2.jpg" alt="img01"
-						class="img-responsive" />
-					<div class="modal-works">
-						<span>Java</span><span>HTML</span><span>SQL</span>
-					</div>
-					<p><a href="https://github.com/SomeUnusualProgramming/Spring5_Hibernate5" target="_blank" rel="noopener noreferrer">Link do projektu na Github</a></p>
-                    <p>Projekt systemu napisanego w Javie z użyciem popularnych framworków.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal for portfolio item 3 -->
-	<div class="modal fade" id="Modal-3" tabindex="-1" role="dialog"
-		aria-labelledby="Modal-label-3">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="Modal-label-3">Tools for Webmasters</h4>
-				</div>
-				<div class="modal-body">
-					<img src="images/demo/portfolio-5.jpg" alt="img01"
-						class="img-responsive" />
-					<div class="modal-works">
-						<span>HTML</span><span>CSS</span><span>JavaSCript</span>
-					</div>
-					<p><a href="https://someunusualprogramming.github.io/Tools-for-Webmasters/" target="_blank" rel="noopener noreferrer">Link do strony internetowej</a></p>
-                    <p>Strona internetowa z przydatnymi narzędziami dla Webmasterów</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal for portfolio item 4 -->
-	<div class="modal fade" id="Modal-4" tabindex="-1" role="dialog"
-		aria-labelledby="Modal-label-4">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="Modal-label-4">Type the header here</h4>
-				</div>
-				<div class="modal-body">
-					<img src="images/demo/portfolio-3.jpg" alt="img01"
-						class="img-responsive" />
-					<div class="modal-works">
-						<span>XXX</span><span>XXX</span>
-					</div>
-					<p>Nothing here yet</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<!-- Scripts -->
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/cbpAnimatedHeader.js"></script>
-	<script src="js/theme-scripts.js"></script>
-	<!-- IE10 viewport hack for Windows 8 bug -->
-	<script src="js/ie10-viewport-bug-workaround.js"></script>
-
+    <script src="js/marquee-data.js"></script>
+    <script src="js/projects-data.js"></script>
+    <script src="js/theme-scripts.js"></script>
 </body>
 </html>
