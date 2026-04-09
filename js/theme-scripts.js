@@ -7,13 +7,115 @@ function escapeHtml(value) {
 		.replace(/'/g, "&#39;");
 }
 
+window.boostMode = false;
+var TECH_EASTER_EGG_SHOWN_KEY = "tech.easterEggShown.v1";
+window.techEasterEggState = {
+	hoverTimes: [],
+	activeUntil: 0,
+	cooldownUntil: 0
+};
+
+function initBoostToggle() {
+	var toggle = document.getElementById("boost-toggle");
+	if (!toggle) {
+		return;
+	}
+	window.boostMode = !!toggle.checked;
+	toggle.addEventListener("change", function() {
+		window.boostMode = !!toggle.checked;
+	});
+}
+
+function ensureTechEasterEggOverlay(container) {
+	var overlay = container.querySelector(".tech-easter-egg");
+	if (overlay) {
+		return overlay;
+	}
+	overlay = document.createElement("div");
+	overlay.className = "tech-easter-egg";
+	overlay.innerHTML = '<p class="tech-easter-egg-text"></p>';
+	overlay.addEventListener("click", function() {
+		container.classList.remove("tech-overheat-message");
+	});
+	container.appendChild(overlay);
+	return overlay;
+}
+
+function triggerTechEasterEgg(container) {
+	var state = window.techEasterEggState;
+	var now = performance.now();
+	if (now < state.cooldownUntil) {
+		return;
+	}
+	var alreadyShown = localStorage.getItem(TECH_EASTER_EGG_SHOWN_KEY) === "1";
+	state.activeUntil = now + 1900;
+	state.cooldownUntil = now + 14000;
+	container.classList.add("tech-overheat");
+	var overlay = ensureTechEasterEggOverlay(container);
+	var textNode = overlay.querySelector(".tech-easter-egg-text");
+	if (textNode) {
+		var msgKey = alreadyShown ? "skills.easterEggRepeat" : "skills.easterEgg";
+		var fallback = alreadyShown
+			? "Widzimy, że dalej testujesz. Boost pozostaje aktywny."
+			: "Fajnie, że tu dotarłeś - to znaczy, że naprawdę testujesz aplikację.";
+		var msg = (typeof window.t === "function") ? window.t(msgKey, fallback) : fallback;
+		textNode.textContent = msg;
+	}
+
+	var nodes = Array.prototype.slice.call(container.querySelectorAll(".tech-node"));
+	if (!alreadyShown) {
+		nodes.forEach(function(node) {
+			var angle = randomBetween(0, Math.PI * 2);
+			var distance = randomBetween(220, 420);
+			var x = Math.cos(angle) * distance;
+			var y = Math.sin(angle) * distance;
+			var rot = randomBetween(-220, 220);
+			node.style.setProperty("--boom-x", x.toFixed(1) + "px");
+			node.style.setProperty("--boom-y", y.toFixed(1) + "px");
+			node.style.setProperty("--boom-r", rot.toFixed(1) + "deg");
+			node.classList.add("tech-node-boom");
+		});
+		setTimeout(function() {
+			container.classList.add("tech-overheat-message");
+		}, 950);
+		setTimeout(function() {
+			nodes.forEach(function(node) {
+				node.classList.remove("tech-node-boom");
+			});
+			positionTechNodes(container);
+			container.classList.remove("tech-overheat");
+		}, 1850);
+		localStorage.setItem(TECH_EASTER_EGG_SHOWN_KEY, "1");
+		return;
+	}
+
+	container.classList.add("tech-overheat-message");
+	setTimeout(function() {
+		container.classList.remove("tech-overheat");
+	}, 120);
+}
+
+function registerHoverActivity(container) {
+	if (!window.boostMode) {
+		return;
+	}
+	var state = window.techEasterEggState;
+	var now = performance.now();
+	var windowMs = 6500;
+	state.hoverTimes = state.hoverTimes.filter(function(ts) { return now - ts < windowMs; });
+	state.hoverTimes.push(now);
+	if (state.hoverTimes.length >= 16) {
+		state.hoverTimes = [];
+		triggerTechEasterEgg(container);
+	}
+}
+
 function renderProjects() {
 	var list = document.getElementById("portfolio-list");
 	if (!list || !Array.isArray(window.projectsData)) {
 		return;
 	}
 
-	var projectReadmeUrl = "https://github.com/SomeUnusualProgramming/SomeUnusualProgramming.github.io#readme";
 	var lang = (window.currentLang || "pl").toLowerCase();
 	function pickLocalized(value) {
 		if (value && typeof value === "object" && !Array.isArray(value)) {
@@ -26,6 +128,7 @@ function renderProjects() {
 		var projectTitle = pickLocalized(project.title);
 		var projectDescription = pickLocalized(project.description);
 		var projectStack = pickLocalized(project.stack);
+		var projectLink = pickLocalized(project.link) || project.link || "#";
 		var stack = (Array.isArray(projectStack) ? projectStack : [])
 			.map(function(tag) {
 				return '<span class="project-tag">' + escapeHtml(tag) + "</span>";
@@ -38,7 +141,7 @@ function renderProjects() {
 		html += '    <div class="project-tags">' + stack + "</div>";
 		html +=
 			'    <a class="project-link" target="_blank" rel="noopener noreferrer" href="' +
-			projectReadmeUrl +
+			escapeHtml(projectLink) +
 			'">' + escapeHtml(typeof window.t === "function" ? window.t("projects.moreInfo", "Więcej informacji") : "Więcej informacji") + "</a>";
 		html += "</article>";
 	});
@@ -218,9 +321,13 @@ function moveNodeToNewPosition(container, node, isFastEscape) {
 		return;
 	}
 	var impulseAngle = randomBetween(0, Math.PI * 2);
-	var impulse = isFastEscape ? randomBetween(220, 320) : randomBetween(120, 180);
+	var boostMultiplier = window.boostMode ? 10 : 1;
+	var impulse = (isFastEscape ? randomBetween(220, 320) : randomBetween(120, 180)) * boostMultiplier;
 	state.vx += Math.cos(impulseAngle) * impulse;
 	state.vy += Math.sin(impulseAngle) * impulse;
+	if (window.boostMode && isFastEscape) {
+		state.boostUntil = performance.now() + 1200;
+	}
 
 	var dx = state.vx;
 	var dy = state.vy;
@@ -250,6 +357,8 @@ function runTechPhysics(container, timestamp) {
 	var maxSpeed = 340;
 	var minSpeed = 38;
 	var wallBoost = 1.1;
+	var state = window.techEasterEggState;
+	var overheatNow = timestamp < (state.activeUntil || 0);
 
 	// soft repulsion for close nodes
 	for (var i = 0; i < physics.nodes.length; i++) {
@@ -273,8 +382,11 @@ function runTechPhysics(container, timestamp) {
 	}
 
 	physics.nodes.forEach(function(n) {
-		n.vx *= 0.999;
-		n.vy *= 0.999;
+		if (n.el.classList.contains("tech-node-boom")) {
+			return;
+		}
+		n.vx *= overheatNow ? 0.988 : 0.999;
+		n.vy *= overheatNow ? 0.988 : 0.999;
 		n.x += n.vx * dt;
 		n.y += n.vy * dt;
 
@@ -300,14 +412,15 @@ function runTechPhysics(container, timestamp) {
 		}
 
 		var speed = Math.sqrt(n.vx * n.vx + n.vy * n.vy);
+		var nodeMaxSpeed = (n.boostUntil && timestamp < n.boostUntil) ? maxSpeed * 10 : maxSpeed;
 		if (speed < minSpeed) {
 			var boostAngle = Math.atan2(n.vy || randomBetween(-1, 1), n.vx || randomBetween(-1, 1));
 			n.vx = Math.cos(boostAngle) * minSpeed;
 			n.vy = Math.sin(boostAngle) * minSpeed;
 			speed = minSpeed;
 		}
-		if (speed > maxSpeed) {
-			var factor = maxSpeed / speed;
+		if (speed > nodeMaxSpeed) {
+			var factor = nodeMaxSpeed / speed;
 			n.vx *= factor;
 			n.vy *= factor;
 		}
@@ -340,6 +453,7 @@ function initTechSpaceInteractions(container) {
 	var nodes = container.querySelectorAll(".tech-node");
 	nodes.forEach(function(node) {
 		node.addEventListener("mouseenter", function() {
+			registerHoverActivity(container);
 			var now = Date.now();
 			var lastEscape = Number(node.dataset.lastEscapeTs || 0);
 			if (now - lastEscape < 220) {
@@ -395,6 +509,7 @@ function setCurrentYear() {
 }
 
 renderProjects();
+initBoostToggle();
 if (window.marqueeData) {
 	renderTechSpace(window.marqueeData.coreTechnologies || []);
 	renderSecondaryTools(window.marqueeData.secondaryTools || []);

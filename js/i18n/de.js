@@ -25,6 +25,9 @@ window.i18nCatalogs.de = {
 		card3: { title: "Systemeinfuhrung und Konfiguration", body: "Modulkonfiguration, Tests, Go-live-Aktivitaten und Support nach der Einfuhrung." },
 		card4: { title: "Analyse und Fehlerbehebung", body: "Debugging, Fehleranalyse und schnelle Stabilisierung von Produktionsumgebungen." },
 		techTitle: "Technologien und Tools",
+		boost: "Boost",
+		easterEgg: "Cool, dass du hier angekommen bist - das zeigt, dass du die App wirklich testest.",
+		easterEggRepeat: "Wir sehen, dass du weiter testest. Boost bleibt aktiv.",
 		secondaryTitle: "Tools und Arbeitsstandards"
 	},
 	projects: {
