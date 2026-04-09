@@ -2,17 +2,19 @@ var marqueeData = {
 	coreTechnologies: [
 		{ name: "Groovy", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/groovy/groovy-original.svg" },
 		{ name: "Spring", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
-		{ name: "REST API", logo: "https://cdn.simpleicons.org/openapiinitiative/6BA539" },
+		{ name: "REST API", logo: "images/icons/rest.png" },
 		{ name: "Kafka", logo: "https://cdn.simpleicons.org/apachekafka/7C8CFF" },
 		{ name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
 		{ name: "Java", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
 		{ name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-		{ name: "JavaScript", glyph: "JS", glyphClass: "glyph-js" },
+		{ name: "JavaScript", logo: "https://api.iconify.design/mdi/language-javascript.svg?color=%23F7DF1E" },
 		{ name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-		{ name: "TypeScript", glyph: "TS", glyphClass: "glyph-ts" },
+		{ name: "TypeScript", logo: "https://api.iconify.design/mdi/language-typescript.svg?color=%233178C6" },
 		{ name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" }
 	],
 	secondaryTools: [
+		{ name: "OpenAPI", logo: "https://cdn.simpleicons.org/openapiinitiative/6BA539" },
+		{ name: "AI", glyph: "AI", glyphClass: "glyph-ai-secondary" },
 		{ name: "Supabase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" },
 		{ name: "Maven", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/maven/maven-original.svg" },
 		{ name: "IntelliJ IDEA", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" },
