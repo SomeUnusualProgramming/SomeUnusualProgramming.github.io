@@ -26,7 +26,7 @@ window.i18nCatalogs.pl = {
 		card4: { title: "Analiza i rozwiązywanie problemów", body: "Debugowanie, analiza błędów i szybkie stabilizowanie środowisk produkcyjnych." },
 		techTitle: "Technologie i narzędzia",
 		boost: "Boost",
-		easterEgg: "Fajnie, że tu dotarłeś - to znaczy, że naprawdę testujesz aplikację.",
+		easterEgg: "Fajnie, że tu dotarłeś - to znaczy, że testujesz aplikację.",
 		easterEggRepeat: "Widzimy, że dalej testujesz. Boost pozostaje aktywny.",
 		secondaryTitle: "Narzędzia i standardy pracy"
 	},
@@ -34,6 +34,51 @@ window.i18nCatalogs.pl = {
 		title: "Wybrane projekty",
 		subtitle: "Realizacje związane z backendem, integracjami i wdrożeniami systemów biznesowych.",
 		moreInfo: "Więcej informacji"
+	},
+	missions: {
+		title: "Misje",
+		boost: "Napęd boost",
+		learn: "Strefa ciekawostek Adama",
+		secret: "Kliknij logo 5 razy",
+		progress: "Postęp:",
+		done: "Zaliczone",
+		todo: "Do zrobienia"
+	},
+	learn: {
+		title: "Ciekawostki od Adama",
+		placeholder: "Kliknij, aby zobaczyć ciekawostkę.",
+		button: "Pokaż ciekawostkę",
+		facts: [
+			"Ośmiornice mają trzy serca, a dwa z nich przestają bić podczas pływania.",
+			"Miód praktycznie się nie psuje - znaleziono jadalny miód sprzed tysięcy lat.",
+			"Banany są lekko radioaktywne przez naturalny potas.",
+			"Niektóre żółwie potrafią oddychać przez kloakę podczas zimowania.",
+			"Krowy potrafią mieć najlepszą przyjaciółkę i stresują się, gdy są rozdzielone.",
+			"Wombaty produkują odchody w kształcie kostki.",
+			"Flamingi nie rodzą się różowe - ten kolor zawdzięczają diecie.",
+			"Gdyby rozciągnąć DNA z jednej komórki człowieka, miałoby około 2 metry długości.",
+			"Rekiny istniały na Ziemi wcześniej niż pierwsze drzewa.",
+			"Ślimaki mogą spać nawet przez kilka lat, gdy warunki są trudne.",
+			"Niektóre pingwiny oświadczają się partnerce, wręczając idealnie gładki kamyk.",
+			"Serce krewetki znajduje się w jej głowie.",
+			"Koale mają odciski palców tak podobne do ludzkich, że mogą zmylić śledczych.",
+			"Wenus obraca się tak wolno, że jej doba trwa dłużej niż rok.",
+			"Kraby kokosowe potrafią wspinać się na palmy, żeby kraść kokosy.",
+			"Na Saturnie i Jowiszu może padać deszcz diamentów.",
+			"Wydry morskie trzymają się za łapy podczas snu, żeby nie odpłynąć od siebie.",
+			"Niektóre gatunki żab potrafią zamarznąć na zimę i wrócić do życia wiosną.",
+			"Kaszaloty komunikują się seriami kliknięć przypominającymi „dialekty rodzinne”.",
+			"Najgłośniejszym zwierzęciem lądowym jest wyjec - słychać go z kilku kilometrów.",
+			"Mrówki nie mają płuc - oddychają przez mikroskopijne otwory w pancerzu.",
+			"W Japonii istnieje wyspa zamieszkana głównie przez króliki.",
+			"Chmury mogą ważyć setki ton, mimo że wyglądają lekko."
+		]
+	},
+	reward: {
+		title: "Odblokowano nagrodę: Złote Gacie Inżyniera",
+		subtitle: "Jeśli dotarłeś tutaj, to naprawdę testujesz aplikację. Szacunek.",
+		claim: "Nagroda do odebrania.",
+		claimButton: "Odbierz nagrodę"
 	},
 	companies: {
 		title: "Firmy, w których realizowałem projekty",

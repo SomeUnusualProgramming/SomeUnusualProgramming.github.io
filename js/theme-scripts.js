@@ -9,11 +9,39 @@ function escapeHtml(value) {
 
 window.boostMode = false;
 var TECH_EASTER_EGG_SHOWN_KEY = "tech.easterEggShown.v1";
+var MISSIONS_STATE_KEY = "portfolio.missions.v1";
 window.techEasterEggState = {
 	hoverTimes: [],
 	activeUntil: 0,
 	cooldownUntil: 0
 };
+window.missionsState = null;
+window.learnFactClicks = 0;
+window.brandClickCount = 0;
+window.learnFactsPool = [];
+window.learnFactsPoolLang = "";
+
+function shuffleArray(list) {
+	for (var i = list.length - 1; i > 0; i--) {
+		var j = Math.floor(Math.random() * (i + 1));
+		var temp = list[i];
+		list[i] = list[j];
+		list[j] = temp;
+	}
+	return list;
+}
+
+function nextLearnFact(facts) {
+	var lang = String(window.currentLang || "pl").toLowerCase();
+	if (!Array.isArray(facts) || facts.length === 0) {
+		return "";
+	}
+	if (window.learnFactsPoolLang !== lang || !Array.isArray(window.learnFactsPool) || window.learnFactsPool.length === 0) {
+		window.learnFactsPoolLang = lang;
+		window.learnFactsPool = shuffleArray(facts.slice());
+	}
+	return window.learnFactsPool.pop() || facts[0];
+}
 
 function initBoostToggle() {
 	var toggle = document.getElementById("boost-toggle");
@@ -86,6 +114,7 @@ function triggerTechEasterEgg(container) {
 			container.classList.remove("tech-overheat");
 		}, 1850);
 		localStorage.setItem(TECH_EASTER_EGG_SHOWN_KEY, "1");
+		completeMission("boostOverheat");
 		return;
 	}
 
@@ -93,6 +122,150 @@ function triggerTechEasterEgg(container) {
 	setTimeout(function() {
 		container.classList.remove("tech-overheat");
 	}, 120);
+}
+
+function loadMissionsState() {
+	var raw = localStorage.getItem(MISSIONS_STATE_KEY);
+	var base = {
+		boostOverheat: localStorage.getItem(TECH_EASTER_EGG_SHOWN_KEY) === "1",
+		learnWithAdam: false,
+		secretLogo: false,
+		rewardUnlocked: false
+	};
+	if (!raw) {
+		window.missionsState = base;
+		return;
+	}
+	try {
+		var parsed = JSON.parse(raw);
+		window.missionsState = {
+			boostOverheat: !!parsed.boostOverheat || base.boostOverheat,
+			learnWithAdam: !!parsed.learnWithAdam,
+			secretLogo: !!parsed.secretLogo,
+			rewardUnlocked: !!parsed.rewardUnlocked
+		};
+	} catch (e) {
+		window.missionsState = base;
+	}
+}
+
+function saveMissionsState() {
+	if (!window.missionsState) {
+		return;
+	}
+	localStorage.setItem(MISSIONS_STATE_KEY, JSON.stringify(window.missionsState));
+}
+
+function updateMissionsUI() {
+	if (!window.missionsState) {
+		return;
+	}
+	var map = [
+		{ key: "boostOverheat", id: "mission-boost", cardId: "mission-card-boost" },
+		{ key: "learnWithAdam", id: "mission-learn", cardId: "mission-card-learn" },
+		{ key: "secretLogo", id: "mission-secret", cardId: "mission-card-secret" }
+	];
+	var done = 0;
+	map.forEach(function(item) {
+		var node = document.getElementById(item.id);
+		var card = document.getElementById(item.cardId);
+		if (!node) {
+			return;
+		}
+		var ok = !!window.missionsState[item.key];
+		var doneText = (typeof window.t === "function") ? window.t("missions.done", "Zaliczone") : "Zaliczone";
+		var todoText = (typeof window.t === "function") ? window.t("missions.todo", "Do zrobienia") : "Do zrobienia";
+		node.textContent = ok ? doneText : todoText;
+		if (card) {
+			card.classList.toggle("done", ok);
+		}
+		if (ok) {
+			done++;
+		}
+	});
+
+	var progress = document.getElementById("mission-progress-value");
+	if (progress) {
+		progress.textContent = done + "/3";
+	}
+
+	var allDone = !!window.missionsState.boostOverheat &&
+		!!window.missionsState.learnWithAdam &&
+		!!window.missionsState.secretLogo;
+
+	var claim = document.getElementById("mission-claim");
+	if (claim) {
+		claim.hidden = !(allDone && !window.missionsState.rewardUnlocked);
+	}
+
+	applyRewardMode();
+}
+
+function completeMission(key) {
+	if (!window.missionsState || window.missionsState[key]) {
+		return;
+	}
+	window.missionsState[key] = true;
+	saveMissionsState();
+	updateMissionsUI();
+}
+
+function initLearnWithAdam() {
+	var button = document.getElementById("learn-button");
+	var text = document.getElementById("learn-fact");
+	if (!button || !text) {
+		return;
+	}
+
+	button.addEventListener("click", function() {
+		var facts = (typeof window.t === "function") ? window.t("learn.facts", []) : [];
+		if (!Array.isArray(facts) || facts.length === 0) {
+			return;
+		}
+		text.textContent = nextLearnFact(facts);
+		window.learnFactClicks++;
+		if (window.learnFactClicks >= 3 && !window.missionsState.learnWithAdam) {
+			completeMission("learnWithAdam");
+		}
+	});
+}
+
+function applyRewardMode() {
+	if (!window.missionsState) {
+		return;
+	}
+	var badge = document.getElementById("reward-badge");
+	if (badge) {
+		badge.hidden = !window.missionsState.rewardUnlocked;
+	}
+}
+
+function initRewardClaim() {
+	var button = document.getElementById("claim-reward-button");
+	if (!button) {
+		return;
+	}
+	button.addEventListener("click", function() {
+		if (!window.missionsState) {
+			return;
+		}
+		window.missionsState.rewardUnlocked = true;
+		saveMissionsState();
+		updateMissionsUI();
+	});
+}
+
+function initSecretLogoMission() {
+	var brand = document.querySelector(".brand");
+	if (!brand) {
+		return;
+	}
+	brand.addEventListener("click", function() {
+		window.brandClickCount++;
+		if (window.brandClickCount >= 5) {
+			completeMission("secretLogo");
+		}
+	});
 }
 
 function registerHoverActivity(container) {
@@ -510,6 +683,11 @@ function setCurrentYear() {
 
 renderProjects();
 initBoostToggle();
+loadMissionsState();
+updateMissionsUI();
+initLearnWithAdam();
+initSecretLogoMission();
+initRewardClaim();
 if (window.marqueeData) {
 	renderTechSpace(window.marqueeData.coreTechnologies || []);
 	renderSecondaryTools(window.marqueeData.secondaryTools || []);
@@ -523,3 +701,4 @@ window.renderTechSpace = renderTechSpace;
 window.renderSecondaryTools = renderSecondaryTools;
 window.renderLogoGrid = renderLogoGrid;
 window.setCurrentYear = setCurrentYear;
+window.updateMissionsUI = updateMissionsUI;

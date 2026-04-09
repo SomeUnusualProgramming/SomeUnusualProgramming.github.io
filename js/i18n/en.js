@@ -35,6 +35,40 @@ window.i18nCatalogs.en = {
 		subtitle: "Implementations focused on backend, integrations, and enterprise system rollouts.",
 		moreInfo: "More information"
 	},
+	missions: {
+		title: "Missions",
+		boost: "Boost drive",
+		learn: "Adam's fact zone",
+		secret: "Click the logo 5 times",
+		progress: "Progress:",
+		done: "Completed",
+		todo: "To do"
+	},
+	learn: {
+		title: "Facts from Adam",
+		placeholder: "Click to see a fun fact.",
+		button: "Show a fact",
+		facts: [
+			"Octopuses have three hearts, and two stop beating while swimming.",
+			"Honey can stay edible for thousands of years in the right conditions.",
+			"Bananas are slightly radioactive because of their natural potassium.",
+			"Wombats produce cube-shaped droppings.",
+			"Flamingos are born gray and turn pink from their diet.",
+			"Sharks existed before trees appeared on Earth.",
+			"Sea otters hold hands while sleeping so they do not drift apart.",
+			"A shrimp's heart is located in its head.",
+			"Venus rotates so slowly that one day is longer than one year.",
+			"Some frogs can freeze in winter and thaw back to life.",
+			"Clouds can weigh hundreds of tons.",
+			"Koala fingerprints are so similar to humans they can confuse investigators."
+		]
+	},
+	reward: {
+		title: "Reward unlocked: Golden Engineer Shorts",
+		subtitle: "If you made it here, you are actually testing the app. Respect.",
+		claim: "Reward ready to claim.",
+		claimButton: "Claim reward"
+	},
 	companies: {
 		title: "Companies where I delivered projects",
 		partnersTitle: "Companies I collaborated with"
