@@ -18,8 +18,7 @@ window.i18nCatalogs.es = {
 		card2: { title: "Tecnologia + entendimiento del negocio", body: "Combino desarrollo y configuracion de sistemas con comunicacion con clientes, analisis de requisitos y soporte post-despliegue." },
 		card3: { title: "Enfoque en resultados", body: "Me importan la estabilidad, la claridad de las soluciones y el impacto real en el trabajo diario de los usuarios." },
 		consultBadge: "Offline",
-		consultOnline: "Online",
-		consultNote: "Espacio demo: aqui podemos anadir un easter egg humoristico basado en hover."
+		consultOnline: "Online"
 	},
 	skills: {
 		title: "Competencias",

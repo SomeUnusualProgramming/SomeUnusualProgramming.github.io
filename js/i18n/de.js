@@ -18,8 +18,7 @@ window.i18nCatalogs.de = {
 		card2: { title: "Technik + Business-Verstandnis", body: "Ich verbinde Entwicklung und Systemkonfiguration mit Kundengesprachen, Anforderungsanalyse und Support nach dem Go-live." },
 		card3: { title: "Fokus auf Ergebnisse", body: "Wichtig sind fur mich Stabilitat, saubere Losungen und messbarer Nutzen im Arbeitsalltag der Anwender." },
 		consultBadge: "Offline",
-		consultOnline: "Online",
-		consultNote: "Demo-Platz: Hier kann ein humorvolles Hover-Easter-Egg eingebaut werden."
+		consultOnline: "Online"
 	},
 	skills: {
 		title: "Kompetenzen",

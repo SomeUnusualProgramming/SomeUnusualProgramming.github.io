@@ -18,8 +18,7 @@ window.i18nCatalogs.pl = {
 		card2: { title: "Technika + zrozumienie biznesu", body: "Łączę pracę developerską i konfiguracyjną z rozmową z klientem, analizą wymagań i wsparciem po wdrożeniu." },
 		card3: { title: "Skupienie na efekcie", body: "Liczy się dla mnie stabilność, czytelność rozwiązania i realny wpływ na codzienną pracę użytkowników." },
 		consultBadge: "Offline",
-		consultOnline: "Online",
-		consultNote: "Wersja demo: tu możemy dodać humorystyczny easter egg oparty o hover i animację."
+		consultOnline: "Online"
 	},
 	skills: {
 		title: "Kompetencje",
