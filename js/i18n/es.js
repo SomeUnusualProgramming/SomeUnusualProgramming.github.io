@@ -35,6 +35,39 @@ window.i18nCatalogs.es = {
 		subtitle: "Implementaciones enfocadas en backend, integraciones y despliegues de sistemas empresariales.",
 		moreInfo: "Mas informacion"
 	},
+	missions: {
+		title: "Misiones",
+		boost: "Motor boost",
+		learn: "Zona de datos de Adam",
+		secret: "Haz clic en el logo 5 veces",
+		progress: "Progreso:",
+		done: "Completado",
+		todo: "Pendiente"
+	},
+	learn: {
+		title: "Datos de Adam",
+		placeholder: "Haz clic para ver un dato curioso.",
+		button: "Mostrar dato",
+		facts: [
+			"Los pulpos tienen tres corazones, y dos dejan de latir al nadar.",
+			"La miel puede mantenerse comestible durante miles de anos.",
+			"Los platanos son ligeramente radiactivos por su potasio natural.",
+			"Los wombats producen heces con forma de cubo.",
+			"Los flamencos nacen grises y se vuelven rosas por su dieta.",
+			"Los tiburones existian antes que los arboles.",
+			"Las nutrias marinas se toman de las patas al dormir para no separarse.",
+			"El corazon de un camaron esta en su cabeza.",
+			"Venus gira tan lento que un dia dura mas que un ano.",
+			"Algunas ranas pueden congelarse en invierno y volver a la vida.",
+			"Las nubes pueden pesar cientos de toneladas."
+		]
+	},
+	reward: {
+		title: "Recompensa desbloqueada: Pantalones dorados del ingeniero",
+		subtitle: "Si llegaste hasta aqui, de verdad estas probando la app. Respeto.",
+		claim: "Recompensa lista para reclamar.",
+		claimButton: "Reclamar recompensa"
+	},
 	companies: {
 		title: "Empresas donde realice proyectos",
 		partnersTitle: "Empresas con las que colabore"
