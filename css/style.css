@@ -76,6 +76,7 @@ a {
     justify-content: space-between;
     align-items: center;
     min-height: 72px;
+    gap: 18px;
 }
 
 .brand {
@@ -98,6 +99,50 @@ a {
 
 .nav-list a:hover {
     color: var(--text);
+}
+
+.language-switcher {
+    position: relative;
+}
+
+.lang-button {
+    min-width: 54px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.lang-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 140px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: #0f1524;
+    box-shadow: var(--shadow);
+    padding: 6px;
+    z-index: 50;
+}
+
+.lang-option {
+    display: block;
+    width: 100%;
+    border: 0;
+    border-radius: 8px;
+    padding: 7px 9px;
+    text-align: left;
+    color: #d8e1fb;
+    background: transparent;
+    cursor: pointer;
+}
+
+.lang-option:hover {
+    background: rgba(139, 155, 255, 0.16);
 }
 
 .hero {
@@ -544,6 +589,10 @@ h1 {
         gap: 14px;
         flex-wrap: wrap;
         justify-content: center;
+    }
+
+    .language-switcher {
+        align-self: center;
     }
 
     .hero {

@@ -14,22 +14,32 @@ function renderProjects() {
 	}
 
 	var projectReadmeUrl = "https://github.com/SomeUnusualProgramming/SomeUnusualProgramming.github.io#readme";
+	var lang = (window.currentLang || "pl").toLowerCase();
+	function pickLocalized(value) {
+		if (value && typeof value === "object" && !Array.isArray(value)) {
+			return value[lang] || value.pl || "";
+		}
+		return value || "";
+	}
 	var html = "";
 	window.projectsData.forEach(function(project) {
-		var stack = (project.stack || [])
+		var projectTitle = pickLocalized(project.title);
+		var projectDescription = pickLocalized(project.description);
+		var projectStack = pickLocalized(project.stack);
+		var stack = (Array.isArray(projectStack) ? projectStack : [])
 			.map(function(tag) {
 				return '<span class="project-tag">' + escapeHtml(tag) + "</span>";
 			})
 			.join("");
 
 		html += '<article class="project-card">';
-		html += '    <h3>' + escapeHtml(project.title || "") + "</h3>";
-		html += '    <p>' + escapeHtml(project.description || "") + "</p>";
+		html += '    <h3>' + escapeHtml(projectTitle || "") + "</h3>";
+		html += '    <p>' + escapeHtml(projectDescription || "") + "</p>";
 		html += '    <div class="project-tags">' + stack + "</div>";
 		html +=
 			'    <a class="project-link" target="_blank" rel="noopener noreferrer" href="' +
 			projectReadmeUrl +
-			'">Więcej informacji</a>';
+			'">' + escapeHtml(typeof window.t === "function" ? window.t("projects.moreInfo", "Więcej informacji") : "Więcej informacji") + "</a>";
 		html += "</article>";
 	});
 
@@ -230,3 +240,8 @@ if (window.marqueeData) {
 	renderLogoGrid("partner-logos", window.marqueeData.partners || []);
 }
 setCurrentYear();
+
+window.renderProjects = renderProjects;
+window.renderTechSpace = renderTechSpace;
+window.renderLogoGrid = renderLogoGrid;
+window.setCurrentYear = setCurrentYear;
