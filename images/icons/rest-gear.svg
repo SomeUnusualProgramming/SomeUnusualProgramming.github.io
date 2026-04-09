@@ -1,0 +1,31 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="REST API gear icon">
+  <defs>
+    <linearGradient id="gearGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#37d67a"/>
+      <stop offset="100%" stop-color="#148a49"/>
+    </linearGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Gear teeth -->
+  <g filter="url(#shadow)">
+    <path d="M64 6
+             L74 6 L78 17 L90 13 L97 21 L93 33 L104 40 L104 50 L115 56 L115 72 L104 78 L104 88 L93 95 L97 107 L90 115 L78 111 L74 122
+             L54 122 L50 111 L38 115 L31 107 L35 95 L24 88 L24 78 L13 72 L13 56 L24 50 L24 40 L35 33 L31 21 L38 13 L50 17 L54 6 Z"
+          fill="url(#gearGrad)"/>
+    <!-- Gear ring -->
+    <circle cx="64" cy="64" r="34" fill="#1aa85b"/>
+    <circle cx="64" cy="64" r="19" fill="#0a1f14"/>
+  </g>
+
+  <!-- REST text -->
+  <text x="64" y="68"
+        text-anchor="middle"
+        font-family="Inter, Arial, sans-serif"
+        font-size="17"
+        font-weight="800"
+        letter-spacing="1.2"
+        fill="#ecfff3">REST</text>
+</svg>

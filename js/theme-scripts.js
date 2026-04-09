@@ -128,11 +128,16 @@ function renderSecondaryTools(items) {
 		return;
 	}
 	var html = items
-		.filter(function(item) { return item && item.logo; })
+		.filter(function(item) { return item && (item.logo || item.glyph); })
 		.map(function(item) {
 			var label = escapeHtml(item.name || "");
 			var logo = escapeHtml(item.logo || "");
-			return '<span class="secondary-tool"><img loading="lazy" src="' + logo + '" alt="' + label + ' logo"></span>';
+			var glyph = escapeHtml(item.glyph || "");
+			var glyphClass = escapeHtml(item.glyphClass || "");
+			var visual = logo
+				? '<img loading="lazy" src="' + logo + '" alt="' + label + ' logo">'
+				: '<span class="secondary-glyph ' + glyphClass + '" aria-hidden="true">' + glyph + "</span>";
+			return '<span class="secondary-tool" aria-label="' + label + '">' + visual + "</span>";
 		})
 		.join("");
 	container.innerHTML = html ? '<div class="ticker-track">' + html + html + html + "</div>" : "";
@@ -161,15 +166,18 @@ function positionTechNodes(container) {
 
 	var bounds = container.getBoundingClientRect();
 	var nodeSize = nodes[0].offsetWidth || 72;
-	var padding = 22;
-	var minDistance = Math.max(108, nodeSize * 1.25);
-	var maxX = Math.max(padding, bounds.width - nodeSize - padding);
-	var maxY = Math.max(padding, bounds.height - nodeSize - padding);
+	var padding = 14;
+	var minDistance = Math.max(90, nodeSize * 1.12);
+	var maxX = Math.max(padding + nodeSize * 0.5, bounds.width - nodeSize * 0.5 - padding);
+	var maxY = Math.max(padding + nodeSize * 0.5, bounds.height - nodeSize * 0.5 - padding);
 	var placed = [];
+	var physics = container.__techPhysics || { nodes: [], rafId: null, lastTs: 0 };
+	container.__techPhysics = physics;
+	physics.nodes = [];
 
-	nodes.forEach(function(node) {
-		var x = padding;
-		var y = padding;
+	nodes.forEach(function(node, index) {
+		var x = padding + nodeSize * 0.5;
+		var y = padding + nodeSize * 0.5;
 		var attempts = 0;
 
 		while (attempts < 90) {
@@ -182,69 +190,200 @@ function positionTechNodes(container) {
 		}
 
 		placed.push({ x: x, y: y });
-		node.style.left = x + "px";
-		node.style.top = y + "px";
+		node.style.left = (x - nodeSize * 0.5) + "px";
+		node.style.top = (y - nodeSize * 0.5) + "px";
 		node.style.setProperty("--trail-offset", (nodeSize * 0.42).toFixed(1) + "px");
+
+		var speed = randomBetween(42, 92);
+		var angle = randomBetween(0, Math.PI * 2);
+		physics.nodes[index] = {
+			el: node,
+			x: x,
+			y: y,
+			vx: Math.cos(angle) * speed,
+			vy: Math.sin(angle) * speed,
+			r: nodeSize * 0.5
+		};
 	});
 }
 
-function moveNodeToNewPosition(container, node) {
-	var nodes = Array.prototype.slice.call(container.querySelectorAll(".tech-node"));
-	var bounds = container.getBoundingClientRect();
-	var nodeSize = node.offsetWidth || 72;
-	var padding = 22;
-	var minDistance = Math.max(108, nodeSize * 1.25);
-	var maxX = Math.max(padding, bounds.width - nodeSize - padding);
-	var maxY = Math.max(padding, bounds.height - nodeSize - padding);
-	var occupied = nodes
-		.filter(function(other) { return other !== node; })
-		.map(function(other) {
-			return {
-				x: parseFloat(other.style.left) || 0,
-				y: parseFloat(other.style.top) || 0
-			};
-		});
-
-	var x = padding;
-	var y = padding;
-	var attempts = 0;
-	var oldX = parseFloat(node.style.left) || padding;
-	var oldY = parseFloat(node.style.top) || padding;
-	while (attempts < 120) {
-		x = randomBetween(padding, maxX);
-		y = randomBetween(padding, maxY);
-		if (!isTooClose(x, y, occupied, minDistance)) {
-			break;
-		}
-		attempts++;
+function moveNodeToNewPosition(container, node, isFastEscape) {
+	var physics = container.__techPhysics;
+	if (!physics || !physics.nodes) {
+		return;
 	}
 
-	var dx = x - oldX;
-	var dy = y - oldY;
+	var state = physics.nodes.find(function(n) { return n.el === node; });
+	if (!state) {
+		return;
+	}
+	var impulseAngle = randomBetween(0, Math.PI * 2);
+	var impulse = isFastEscape ? randomBetween(220, 320) : randomBetween(120, 180);
+	state.vx += Math.cos(impulseAngle) * impulse;
+	state.vy += Math.sin(impulseAngle) * impulse;
+
+	var dx = state.vx;
+	var dy = state.vy;
 	var angleDeg = (Math.atan2(dy, dx) * (180 / Math.PI)) + 180;
 	node.style.setProperty("--trail-angle", angleDeg + "deg");
-	node.style.setProperty("--trail-offset", (nodeSize * 0.42).toFixed(1) + "px");
 
 	node.classList.add("tech-node-escaping");
-	node.style.left = x + "px";
-	node.style.top = y + "px";
 	setTimeout(function() {
 		node.classList.remove("tech-node-escaping");
 	}, 320);
 }
 
+function runTechPhysics(container, timestamp) {
+	var physics = container.__techPhysics;
+	if (!physics || !physics.nodes || !physics.nodes.length) {
+		return;
+	}
+
+	if (!physics.lastTs) {
+		physics.lastTs = timestamp;
+	}
+	var dt = Math.min(0.032, (timestamp - physics.lastTs) / 1000);
+	physics.lastTs = timestamp;
+
+	var bounds = container.getBoundingClientRect();
+	var padding = 12;
+	var maxSpeed = 340;
+	var minSpeed = 38;
+	var wallBoost = 1.1;
+
+	// soft repulsion for close nodes
+	for (var i = 0; i < physics.nodes.length; i++) {
+		for (var j = i + 1; j < physics.nodes.length; j++) {
+			var a = physics.nodes[i];
+			var b = physics.nodes[j];
+			var dx = b.x - a.x;
+			var dy = b.y - a.y;
+			var dist = Math.sqrt(dx * dx + dy * dy) || 0.001;
+			var minDist = (a.r + b.r) * 1.15;
+			if (dist < minDist) {
+				var nx = dx / dist;
+				var ny = dy / dist;
+				var push = (minDist - dist) * 7.8;
+				a.vx -= nx * push;
+				a.vy -= ny * push;
+				b.vx += nx * push;
+				b.vy += ny * push;
+			}
+		}
+	}
+
+	physics.nodes.forEach(function(n) {
+		n.vx *= 0.999;
+		n.vy *= 0.999;
+		n.x += n.vx * dt;
+		n.y += n.vy * dt;
+
+		var minX = n.r + padding;
+		var maxX = bounds.width - n.r - padding;
+		var minY = n.r + padding;
+		var maxY = bounds.height - n.r - padding;
+
+		if (n.x < minX) {
+			n.x = minX;
+			n.vx = Math.abs(n.vx) * wallBoost;
+		} else if (n.x > maxX) {
+			n.x = maxX;
+			n.vx = -Math.abs(n.vx) * wallBoost;
+		}
+
+		if (n.y < minY) {
+			n.y = minY;
+			n.vy = Math.abs(n.vy) * wallBoost;
+		} else if (n.y > maxY) {
+			n.y = maxY;
+			n.vy = -Math.abs(n.vy) * wallBoost;
+		}
+
+		var speed = Math.sqrt(n.vx * n.vx + n.vy * n.vy);
+		if (speed < minSpeed) {
+			var boostAngle = Math.atan2(n.vy || randomBetween(-1, 1), n.vx || randomBetween(-1, 1));
+			n.vx = Math.cos(boostAngle) * minSpeed;
+			n.vy = Math.sin(boostAngle) * minSpeed;
+			speed = minSpeed;
+		}
+		if (speed > maxSpeed) {
+			var factor = maxSpeed / speed;
+			n.vx *= factor;
+			n.vy *= factor;
+		}
+
+		var angleDeg = (Math.atan2(n.vy, n.vx) * (180 / Math.PI)) + 180;
+		n.el.style.setProperty("--trail-angle", angleDeg + "deg");
+		n.el.style.left = (n.x - n.r) + "px";
+		n.el.style.top = (n.y - n.r) + "px";
+	});
+
+	physics.rafId = requestAnimationFrame(function(ts) {
+		runTechPhysics(container, ts);
+	});
+}
+
 function initTechSpaceInteractions(container) {
 	positionTechNodes(container);
+	var physics = container.__techPhysics;
+	if (physics && physics.rafId) {
+		cancelAnimationFrame(physics.rafId);
+		physics.rafId = null;
+	}
+	if (physics) {
+		physics.lastTs = 0;
+		physics.rafId = requestAnimationFrame(function(ts) {
+			runTechPhysics(container, ts);
+		});
+	}
+
 	var nodes = container.querySelectorAll(".tech-node");
 	nodes.forEach(function(node) {
+		node.addEventListener("mouseenter", function() {
+			var now = Date.now();
+			var lastEscape = Number(node.dataset.lastEscapeTs || 0);
+			if (now - lastEscape < 220) {
+				return;
+			}
+			node.dataset.lastEscapeTs = String(now);
+			moveNodeToNewPosition(container, node, true);
+		});
 		node.addEventListener("click", function() {
-			moveNodeToNewPosition(container, node);
+			moveNodeToNewPosition(container, node, true);
 		});
 	});
 
-	window.addEventListener("resize", function() {
-		positionTechNodes(container);
-	});
+	if (!window.__techSpaceResizeBound) {
+		window.__techSpaceResizeBound = true;
+		window.addEventListener("resize", function() {
+			var active = document.getElementById("tech-space");
+			if (!active) {
+				return;
+			}
+			positionTechNodes(active);
+		});
+	}
+
+	if (!window.__techSpaceVisibilityBound) {
+		window.__techSpaceVisibilityBound = true;
+		window.addEventListener("visibilitychange", function() {
+			var active = document.getElementById("tech-space");
+			if (!active || !active.__techPhysics) {
+				return;
+			}
+			if (document.hidden) {
+				if (active.__techPhysics.rafId) {
+					cancelAnimationFrame(active.__techPhysics.rafId);
+					active.__techPhysics.rafId = null;
+				}
+			} else if (!active.__techPhysics.rafId) {
+				active.__techPhysics.lastTs = 0;
+				active.__techPhysics.rafId = requestAnimationFrame(function(ts) {
+					runTechPhysics(active, ts);
+				});
+			}
+		});
+	}
 }
 
 function setCurrentYear() {
