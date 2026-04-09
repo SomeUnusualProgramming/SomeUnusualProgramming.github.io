@@ -39,14 +39,22 @@
 
     <main id="top">
         <section class="hero container">
-            <p class="eyebrow" data-i18n="hero.eyebrow">Portfolio zawodowe</p>
-            <h1 data-i18n="hero.title">Wdrażam i rozwijam systemy biznesowe, łącząc solidny backend z praktycznym podejściem do potrzeb klienta.</h1>
-            <p class="lead" data-i18n="hero.lead">
-                Pracuję end-to-end: od analizy wymagań i zaprojektowania rozwiązania, przez implementację i testy, po stabilne uruchomienie na produkcji.
-            </p>
-            <div class="hero-actions">
-                <a class="btn btn-primary" href="#projects" data-i18n="hero.ctaProjects">Zobacz projekty</a>
-                <a class="btn btn-secondary" href="#contact" data-i18n="hero.ctaContact">Skontaktuj się</a>
+            <div class="hero-layout">
+                <div class="hero-copy">
+                    <p class="eyebrow" data-i18n="hero.eyebrow">Portfolio zawodowe</p>
+                    <h1 data-i18n="hero.title">Buduję fundamenty nowoczesnego biznesu: solidny backend i rozwiązania skrojone pod użytkownika.</h1>
+                    <p class="lead" data-i18n="hero.lead">
+                        Pracuję end-to-end: od analizy wymagań i zaprojektowania rozwiązania, przez implementację i testy, po stabilne uruchomienie na produkcji.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#projects" data-i18n="hero.ctaProjects">Zobacz projekty</a>
+                        <a class="btn btn-secondary" href="#contact" data-i18n="hero.ctaContact">Skontaktuj się</a>
+                    </div>
+                </div>
+                <div id="consult-panel" class="hero-photo-panel" aria-label="Tryb konsultacji">
+                    <img class="hero-photo" src="images/mua.JPG" alt="Adam Świerkosz" loading="lazy">
+                    <button id="consult-badge" class="consult-badge" type="button" data-i18n="about.consultBadge">Offline</button>
+                </div>
             </div>
         </section>
 
@@ -137,8 +145,8 @@
                 <h2 data-i18n="learn.title">Ciekawostki od Adama</h2>
             </div>
             <div id="learn-card" class="learn-card">
-                <p id="learn-fact" data-i18n="learn.placeholder">Kliknij, a dostaniesz ciekawostkę.</p>
                 <button id="learn-button" class="btn btn-secondary" type="button" data-i18n="learn.button">Pokaż ciekawostkę</button>
+                <p id="learn-fact" data-i18n="learn.placeholder"></p>
             </div>
 
             <div class="section-head stack-head">
@@ -147,8 +155,7 @@
             <div class="missions-board mission-grid">
                 <article id="mission-card-boost" class="mission-card"><h3 data-i18n="missions.boost">Napęd boost</h3><p id="mission-boost" class="mission-status">Do zrobienia</p></article>
                 <article id="mission-card-learn" class="mission-card"><h3 data-i18n="missions.learn">Strefa ciekawostek Adama</h3><p id="mission-learn" class="mission-status">Do zrobienia</p></article>
-                <article id="mission-card-secret" class="mission-card"><h3 data-i18n="missions.secret">Kliknij logo 5 razy</h3><p id="mission-secret" class="mission-status">Do zrobienia</p></article>
-                <div class="mission-progress"><span data-i18n="missions.progress">Postęp:</span> <strong id="mission-progress-value">0/3</strong></div>
+                <article id="mission-card-secret" class="mission-card"><h3 data-i18n="missions.secret">Status konsultacji online</h3><p id="mission-secret" class="mission-status">Do zrobienia</p></article>
                 <div id="mission-claim" class="mission-claim" hidden>
                     <p data-i18n="reward.claim">Nagroda do odebrania.</p>
                     <button id="claim-reward-button" class="btn btn-primary" type="button" data-i18n="reward.claimButton">Odbierz nagrodę</button>
@@ -156,8 +163,8 @@
             </div>
 
             <div id="reward-badge" class="reward-badge" hidden>
-                <h3 data-i18n="reward.title">Odblokowano nagrodę: Złote Gacie Inżyniera</h3>
-                <p data-i18n="reward.subtitle">Jeśli dotarłeś tutaj, to naprawdę testujesz aplikację. Szacunek.</p>
+                <h3 data-i18n="reward.title">Wygrałeś nagrodę!!!</h3>
+                <p data-i18n="reward.subtitle">Żeby ją odblokować kliknij w ikonę kontaktu :)</p>
             </div>
         </section>
 

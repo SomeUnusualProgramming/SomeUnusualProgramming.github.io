@@ -16,7 +16,10 @@ window.i18nCatalogs.de = {
 		title: "Uber mich",
 		card1: { title: "5+ Jahre Produktionsverantwortung", body: "Ich liefere Anderungen fur Systeme, die taglich im Unternehmen genutzt werden und Geschaftsprozesse direkt unterstutzen." },
 		card2: { title: "Technik + Business-Verstandnis", body: "Ich verbinde Entwicklung und Systemkonfiguration mit Kundengesprachen, Anforderungsanalyse und Support nach dem Go-live." },
-		card3: { title: "Fokus auf Ergebnisse", body: "Wichtig sind fur mich Stabilitat, saubere Losungen und messbarer Nutzen im Arbeitsalltag der Anwender." }
+		card3: { title: "Fokus auf Ergebnisse", body: "Wichtig sind fur mich Stabilitat, saubere Losungen und messbarer Nutzen im Arbeitsalltag der Anwender." },
+		consultBadge: "Offline",
+		consultOnline: "Online",
+		consultNote: "Demo-Platz: Hier kann ein humorvolles Hover-Easter-Egg eingebaut werden."
 	},
 	skills: {
 		title: "Kompetenzen",
@@ -39,7 +42,7 @@ window.i18nCatalogs.de = {
 		title: "Missionen",
 		boost: "Boost-Antrieb",
 		learn: "Adams Faktenzone",
-		secret: "Klicke das Logo 5 Mal",
+		secret: "Beratungsstatus online",
 		progress: "Fortschritt:",
 		done: "Erledigt",
 		todo: "Offen"
@@ -63,8 +66,8 @@ window.i18nCatalogs.de = {
 		]
 	},
 	reward: {
-		title: "Belohnung freigeschaltet: Goldene Ingenieur-Shorts",
-		subtitle: "Wenn du hier angekommen bist, testest du die App wirklich. Respekt.",
+		title: "Du hast eine Belohnung gewonnen!!!",
+		subtitle: "Um sie freizuschalten, klicke auf das Kontakt-Symbol :)",
 		claim: "Belohnung bereit zur Abholung.",
 		claimButton: "Belohnung abholen"
 	},
