@@ -24,7 +24,8 @@ window.i18nCatalogs.es = {
 		card2: { title: "Integraciones y flujo de datos", body: "Integraciones REST API, mapeo de datos y consistencia entre sistemas." },
 		card3: { title: "Despliegue y configuracion de sistemas", body: "Configuracion de modulos, pruebas, actividades de puesta en marcha y soporte posterior." },
 		card4: { title: "Analisis y resolucion de problemas", body: "Depuracion, analisis de incidencias y estabilizacion rapida de entornos productivos." },
-		techTitle: "Tecnologias y herramientas"
+		techTitle: "Tecnologias y herramientas",
+		secondaryTitle: "Herramientas y estandares de trabajo"
 	},
 	projects: {
 		title: "Proyectos seleccionados",
