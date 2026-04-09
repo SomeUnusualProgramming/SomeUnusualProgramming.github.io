@@ -9,11 +9,42 @@ function escapeHtml(value) {
 
 window.boostMode = false;
 var TECH_EASTER_EGG_SHOWN_KEY = "tech.easterEggShown.v1";
+var MISSIONS_STATE_KEY = "portfolio.missions.v1";
+var CONSULT_PHOTO_STATE_KEY = "portfolio.consultPhoto.v1";
+var CONSULT_PHOTO_UNTIL_KEY = "portfolio.consultPhotoUntil.v1";
+var CONSULT_PHOTO_DURATION_MS = 5 * 60 * 1000;
 window.techEasterEggState = {
 	hoverTimes: [],
 	activeUntil: 0,
 	cooldownUntil: 0
 };
+window.missionsState = null;
+window.learnFactClicks = 0;
+window.consultClickCount = 0;
+window.learnFactsPool = [];
+window.learnFactsPoolLang = "";
+
+function shuffleArray(list) {
+	for (var i = list.length - 1; i > 0; i--) {
+		var j = Math.floor(Math.random() * (i + 1));
+		var temp = list[i];
+		list[i] = list[j];
+		list[j] = temp;
+	}
+	return list;
+}
+
+function nextLearnFact(facts) {
+	var lang = String(window.currentLang || "pl").toLowerCase();
+	if (!Array.isArray(facts) || facts.length === 0) {
+		return "";
+	}
+	if (window.learnFactsPoolLang !== lang || !Array.isArray(window.learnFactsPool) || window.learnFactsPool.length === 0) {
+		window.learnFactsPoolLang = lang;
+		window.learnFactsPool = shuffleArray(facts.slice());
+	}
+	return window.learnFactsPool.pop() || facts[0];
+}
 
 function initBoostToggle() {
 	var toggle = document.getElementById("boost-toggle");
@@ -86,6 +117,7 @@ function triggerTechEasterEgg(container) {
 			container.classList.remove("tech-overheat");
 		}, 1850);
 		localStorage.setItem(TECH_EASTER_EGG_SHOWN_KEY, "1");
+		completeMission("boostOverheat");
 		return;
 	}
 
@@ -93,6 +125,255 @@ function triggerTechEasterEgg(container) {
 	setTimeout(function() {
 		container.classList.remove("tech-overheat");
 	}, 120);
+}
+
+function loadMissionsState() {
+	var raw = localStorage.getItem(MISSIONS_STATE_KEY);
+	var base = {
+		boostOverheat: localStorage.getItem(TECH_EASTER_EGG_SHOWN_KEY) === "1",
+		learnWithAdam: false,
+		secretLogo: false,
+		rewardUnlocked: false
+	};
+	if (!raw) {
+		window.missionsState = base;
+		return;
+	}
+	try {
+		var parsed = JSON.parse(raw);
+		window.missionsState = {
+			boostOverheat: !!parsed.boostOverheat || base.boostOverheat,
+			learnWithAdam: !!parsed.learnWithAdam,
+			secretLogo: !!parsed.secretLogo,
+			rewardUnlocked: !!parsed.rewardUnlocked
+		};
+	} catch (e) {
+		window.missionsState = base;
+	}
+}
+
+function saveMissionsState() {
+	if (!window.missionsState) {
+		return;
+	}
+	localStorage.setItem(MISSIONS_STATE_KEY, JSON.stringify(window.missionsState));
+}
+
+function updateMissionsUI() {
+	if (!window.missionsState) {
+		return;
+	}
+	var map = [
+		{ key: "boostOverheat", id: "mission-boost", cardId: "mission-card-boost" },
+		{ key: "learnWithAdam", id: "mission-learn", cardId: "mission-card-learn" },
+		{ key: "secretLogo", id: "mission-secret", cardId: "mission-card-secret" }
+	];
+	var done = 0;
+	map.forEach(function(item) {
+		var node = document.getElementById(item.id);
+		var card = document.getElementById(item.cardId);
+		if (!node) {
+			return;
+		}
+		var ok = !!window.missionsState[item.key];
+		var doneText = (typeof window.t === "function") ? window.t("missions.done", "Zaliczone") : "Zaliczone";
+		var todoText = (typeof window.t === "function") ? window.t("missions.todo", "Do zrobienia") : "Do zrobienia";
+		node.textContent = ok ? doneText : todoText;
+		if (card) {
+			card.classList.toggle("done", ok);
+		}
+		if (ok) {
+			done++;
+		}
+	});
+
+	var allDone = !!window.missionsState.boostOverheat &&
+		!!window.missionsState.learnWithAdam &&
+		!!window.missionsState.secretLogo;
+
+	var claim = document.getElementById("mission-claim");
+	if (claim) {
+		claim.hidden = !(allDone && !window.missionsState.rewardUnlocked);
+	}
+
+	var consultPanel = document.getElementById("consult-panel");
+	var consultBadge = document.getElementById("consult-badge");
+	if (consultPanel) {
+		consultPanel.classList.toggle("consult-online", !!window.missionsState.secretLogo);
+	}
+	if (consultBadge) {
+		var badgeKey = window.missionsState.secretLogo ? "about.consultOnline" : "about.consultBadge";
+		var badgeFallback = window.missionsState.secretLogo ? "Online" : "Offline";
+		consultBadge.textContent = (typeof window.t === "function") ? window.t(badgeKey, badgeFallback) : badgeFallback;
+	}
+
+	applyRewardMode();
+}
+
+function completeMission(key) {
+	if (!window.missionsState || window.missionsState[key]) {
+		return;
+	}
+	window.missionsState[key] = true;
+	saveMissionsState();
+	updateMissionsUI();
+}
+
+function initLearnWithAdam() {
+	var button = document.getElementById("learn-button");
+	var text = document.getElementById("learn-fact");
+	if (!button || !text) {
+		return;
+	}
+
+	button.addEventListener("click", function() {
+		var facts = (typeof window.t === "function") ? window.t("learn.facts", []) : [];
+		if (!Array.isArray(facts) || facts.length === 0) {
+			return;
+		}
+		text.textContent = nextLearnFact(facts);
+		window.learnFactClicks++;
+		if (window.learnFactClicks >= 3 && !window.missionsState.learnWithAdam) {
+			completeMission("learnWithAdam");
+		}
+	});
+}
+
+function applyRewardMode() {
+	if (!window.missionsState) {
+		return;
+	}
+	var badge = document.getElementById("reward-badge");
+	if (badge) {
+		badge.hidden = !window.missionsState.rewardUnlocked;
+	}
+}
+
+function initRewardClaim() {
+	var button = document.getElementById("claim-reward-button");
+	if (!button) {
+		return;
+	}
+
+	function playRewardClaimEffect() {
+		var badge = document.getElementById("reward-badge");
+		if (!badge) {
+			return;
+		}
+		badge.classList.remove("reward-claim-animate");
+		void badge.offsetWidth;
+		badge.classList.add("reward-claim-animate");
+
+		for (var i = 0; i < 12; i++) {
+			var line = document.createElement("span");
+			line.className = "reward-confetti-line";
+			var angle = (360 / 12) * i + (Math.random() * 16 - 8);
+			var distance = 76 + Math.random() * 70;
+			line.style.setProperty("--confetti-angle", angle.toFixed(1) + "deg");
+			line.style.setProperty("--confetti-distance", distance.toFixed(1) + "px");
+			line.style.setProperty("--confetti-delay", (Math.random() * 0.14).toFixed(3) + "s");
+			badge.appendChild(line);
+			(function(node) {
+				setTimeout(function() {
+					if (node && node.parentNode) {
+						node.parentNode.removeChild(node);
+					}
+				}, 1300);
+			})(line);
+		}
+
+		setTimeout(function() {
+			badge.classList.remove("reward-claim-animate");
+		}, 1250);
+	}
+
+	button.addEventListener("click", function() {
+		if (!window.missionsState) {
+			return;
+		}
+		playRewardClaimEffect();
+		window.missionsState.rewardUnlocked = true;
+		saveMissionsState();
+		updateMissionsUI();
+	});
+}
+
+function initConsultModeMission() {
+	var badge = document.getElementById("consult-badge");
+	if (!badge) {
+		return;
+	}
+
+	badge.addEventListener("click", function() {
+		if (window.missionsState && window.missionsState.secretLogo) {
+			return;
+		}
+		window.consultClickCount++;
+		if (window.consultClickCount >= 5) {
+			completeMission("secretLogo");
+		}
+	});
+}
+
+function setConsultPhoto(mode) {
+	var photo = document.querySelector("#consult-panel .hero-photo");
+	if (!photo) {
+		return;
+	}
+	if (mode === "deal") {
+		photo.src = "images/poggers.jpeg";
+		photo.dataset.photoMode = "deal";
+		return;
+	}
+	photo.src = "images/mua.JPG";
+	photo.dataset.photoMode = "default";
+}
+
+function restoreConsultPhotoState() {
+	var mode = localStorage.getItem(CONSULT_PHOTO_STATE_KEY);
+	var until = Number(localStorage.getItem(CONSULT_PHOTO_UNTIL_KEY) || 0);
+	var now = Date.now();
+	if (mode === "deal" && until > now) {
+		setConsultPhoto("deal");
+		return;
+	}
+	localStorage.removeItem(CONSULT_PHOTO_STATE_KEY);
+	localStorage.removeItem(CONSULT_PHOTO_UNTIL_KEY);
+	setConsultPhoto("default");
+}
+
+function scheduleConsultPhotoReset() {
+	var until = Number(localStorage.getItem(CONSULT_PHOTO_UNTIL_KEY) || 0);
+	var now = Date.now();
+	if (!until || until <= now) {
+		return;
+	}
+	setTimeout(function() {
+		localStorage.removeItem(CONSULT_PHOTO_STATE_KEY);
+		localStorage.removeItem(CONSULT_PHOTO_UNTIL_KEY);
+		setConsultPhoto("default");
+	}, until - now);
+}
+
+function initRewardContactUnlock() {
+	var links = document.querySelectorAll(".contact-links a");
+	if (!links || links.length === 0) {
+		return;
+	}
+	links.forEach(function(link) {
+		link.addEventListener("click", function() {
+			if (!window.missionsState || !window.missionsState.rewardUnlocked) {
+				return;
+			}
+			setConsultPhoto("deal");
+			localStorage.setItem(CONSULT_PHOTO_STATE_KEY, "deal");
+			localStorage.setItem(CONSULT_PHOTO_UNTIL_KEY, String(Date.now() + CONSULT_PHOTO_DURATION_MS));
+			scheduleConsultPhotoReset();
+			setTimeout(function() {
+				window.scrollTo({ top: 0, behavior: "smooth" });
+			}, 120);
+		});
+	});
 }
 
 function registerHoverActivity(container) {
@@ -124,7 +405,20 @@ function renderProjects() {
 		return value || "";
 	}
 	var html = "";
-	window.projectsData.forEach(function(project) {
+	var orderedProjects = window.projectsData.slice().sort(function(a, b) {
+		function rank(project) {
+			var title = String(pickLocalized(project && project.title) || "").toLowerCase();
+			if (title.indexOf("tools for webmasters") >= 0) {
+				return 0;
+			}
+			if (title.indexOf("portfolio") >= 0) {
+				return 1;
+			}
+			return 2;
+		}
+		return rank(a) - rank(b);
+	});
+	orderedProjects.forEach(function(project) {
 		var projectTitle = pickLocalized(project.title);
 		var projectDescription = pickLocalized(project.description);
 		var projectStack = pickLocalized(project.stack);
@@ -510,6 +804,14 @@ function setCurrentYear() {
 
 renderProjects();
 initBoostToggle();
+loadMissionsState();
+restoreConsultPhotoState();
+scheduleConsultPhotoReset();
+updateMissionsUI();
+initLearnWithAdam();
+initConsultModeMission();
+initRewardClaim();
+initRewardContactUnlock();
 if (window.marqueeData) {
 	renderTechSpace(window.marqueeData.coreTechnologies || []);
 	renderSecondaryTools(window.marqueeData.secondaryTools || []);
@@ -523,3 +825,4 @@ window.renderTechSpace = renderTechSpace;
 window.renderSecondaryTools = renderSecondaryTools;
 window.renderLogoGrid = renderLogoGrid;
 window.setCurrentYear = setCurrentYear;
+window.updateMissionsUI = updateMissionsUI;

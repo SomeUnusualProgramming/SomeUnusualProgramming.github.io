@@ -66,6 +66,9 @@
 		localStorage.setItem(STORAGE_KEY, window.currentLang);
 		updateStaticText();
 		updateLangButton();
+		if (typeof window.updateMissionsUI === "function") {
+			window.updateMissionsUI();
+		}
 		if (typeof window.renderProjects === "function") {
 			window.renderProjects();
 		}
@@ -111,6 +114,9 @@
 		initLanguageSwitcher();
 		updateLangButton();
 		updateStaticText();
+		if (typeof window.updateMissionsUI === "function") {
+			window.updateMissionsUI();
+		}
 		if (typeof window.renderProjects === "function") {
 			window.renderProjects();
 		}

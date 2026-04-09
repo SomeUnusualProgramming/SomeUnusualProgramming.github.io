@@ -16,7 +16,10 @@ window.i18nCatalogs.en = {
 		title: "About",
 		card1: { title: "5+ years of production ownership", body: "I deliver changes on systems used daily in organizations and directly supporting business processes." },
 		card2: { title: "Technology + business understanding", body: "I combine development and system configuration with client communication, requirements analysis, and post-deployment support." },
-		card3: { title: "Outcome-focused mindset", body: "I care about stability, clean solutions, and measurable impact on users' daily work." }
+		card3: { title: "Outcome-focused mindset", body: "I care about stability, clean solutions, and measurable impact on users' daily work." },
+		consultBadge: "Offline",
+		consultOnline: "Online",
+		consultNote: "Demo slot: this is where a humor-based hover easter egg can live."
 	},
 	skills: {
 		title: "Capabilities",
@@ -34,6 +37,40 @@ window.i18nCatalogs.en = {
 		title: "Selected projects",
 		subtitle: "Implementations focused on backend, integrations, and enterprise system rollouts.",
 		moreInfo: "More information"
+	},
+	missions: {
+		title: "Missions",
+		boost: "Boost drive",
+		learn: "Adam's fact zone",
+		secret: "Consult status online",
+		progress: "Progress:",
+		done: "Completed",
+		todo: "To do"
+	},
+	learn: {
+		title: "Facts from Adam",
+		placeholder: "Click to see a fun fact.",
+		button: "Show a fact",
+		facts: [
+			"Octopuses have three hearts, and two stop beating while swimming.",
+			"Honey can stay edible for thousands of years in the right conditions.",
+			"Bananas are slightly radioactive because of their natural potassium.",
+			"Wombats produce cube-shaped droppings.",
+			"Flamingos are born gray and turn pink from their diet.",
+			"Sharks existed before trees appeared on Earth.",
+			"Sea otters hold hands while sleeping so they do not drift apart.",
+			"A shrimp's heart is located in its head.",
+			"Venus rotates so slowly that one day is longer than one year.",
+			"Some frogs can freeze in winter and thaw back to life.",
+			"Clouds can weigh hundreds of tons.",
+			"Koala fingerprints are so similar to humans they can confuse investigators."
+		]
+	},
+	reward: {
+		title: "You won a reward!!!",
+		subtitle: "To unlock it, click the contact icon :)",
+		claim: "Reward ready to claim.",
+		claimButton: "Claim reward"
 	},
 	companies: {
 		title: "Companies where I delivered projects",

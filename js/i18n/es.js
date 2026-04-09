@@ -16,7 +16,10 @@ window.i18nCatalogs.es = {
 		title: "Sobre mi",
 		card1: { title: "5+ anos de responsabilidad en produccion", body: "Entrego cambios en sistemas usados diariamente por las empresas y que apoyan directamente sus procesos." },
 		card2: { title: "Tecnologia + entendimiento del negocio", body: "Combino desarrollo y configuracion de sistemas con comunicacion con clientes, analisis de requisitos y soporte post-despliegue." },
-		card3: { title: "Enfoque en resultados", body: "Me importan la estabilidad, la claridad de las soluciones y el impacto real en el trabajo diario de los usuarios." }
+		card3: { title: "Enfoque en resultados", body: "Me importan la estabilidad, la claridad de las soluciones y el impacto real en el trabajo diario de los usuarios." },
+		consultBadge: "Offline",
+		consultOnline: "Online",
+		consultNote: "Espacio demo: aqui podemos anadir un easter egg humoristico basado en hover."
 	},
 	skills: {
 		title: "Competencias",
@@ -34,6 +37,39 @@ window.i18nCatalogs.es = {
 		title: "Proyectos seleccionados",
 		subtitle: "Implementaciones enfocadas en backend, integraciones y despliegues de sistemas empresariales.",
 		moreInfo: "Mas informacion"
+	},
+	missions: {
+		title: "Misiones",
+		boost: "Motor boost",
+		learn: "Zona de datos de Adam",
+		secret: "Estado de consultoria online",
+		progress: "Progreso:",
+		done: "Completado",
+		todo: "Pendiente"
+	},
+	learn: {
+		title: "Datos de Adam",
+		placeholder: "Haz clic para ver un dato curioso.",
+		button: "Mostrar dato",
+		facts: [
+			"Los pulpos tienen tres corazones, y dos dejan de latir al nadar.",
+			"La miel puede mantenerse comestible durante miles de anos.",
+			"Los platanos son ligeramente radiactivos por su potasio natural.",
+			"Los wombats producen heces con forma de cubo.",
+			"Los flamencos nacen grises y se vuelven rosas por su dieta.",
+			"Los tiburones existian antes que los arboles.",
+			"Las nutrias marinas se toman de las patas al dormir para no separarse.",
+			"El corazon de un camaron esta en su cabeza.",
+			"Venus gira tan lento que un dia dura mas que un ano.",
+			"Algunas ranas pueden congelarse en invierno y volver a la vida.",
+			"Las nubes pueden pesar cientos de toneladas."
+		]
+	},
+	reward: {
+		title: "Has ganado una recompensa!!!",
+		subtitle: "Para desbloquearla, haz clic en el icono de contacto :)",
+		claim: "Recompensa lista para reclamar.",
+		claimButton: "Reclamar recompensa"
 	},
 	companies: {
 		title: "Empresas donde realice proyectos",
