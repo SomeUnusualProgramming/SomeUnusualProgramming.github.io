@@ -1048,30 +1048,101 @@ h1 {
 }
 
 @media (max-width: 720px) {
+    html {
+        scroll-padding-top: 30px;
+    }
+
+    body {
+        font-size: 14px;
+    }
+
     .nav-wrap {
-        flex-direction: column;
-        gap: 12px;
-        padding: 12px 0;
+        position: relative;
+        min-height: 54px;
+        padding: 8px 0;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .brand {
+        font-size: 0.9rem;
     }
 
     .nav-list {
-        gap: 14px;
+        gap: 10px;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: flex-start;
+        padding-right: 56px;
+    }
+
+    .nav-list a {
+        font-size: 0.82rem;
     }
 
     .language-switcher {
-        align-self: center;
+        position: absolute;
+        right: 0;
+        top: 8px;
+        align-self: auto;
+    }
+
+    .lang-button {
+        min-width: 40px;
+        padding: 5px 8px;
+        font-size: 0.78rem;
     }
 
     .hero {
-        padding-top: 66px;
+        padding-top: 52px;
+        padding-bottom: 24px;
+    }
+
+    .hero-layout {
+        grid-template-columns: minmax(0, 1fr) 120px;
+        align-items: start;
+        gap: 10px;
+    }
+
+    h1 {
+        margin: 10px 0 10px;
+        font-size: clamp(1.16rem, 5vw, 1.38rem);
+        line-height: 1.24;
+    }
+
+    .lead {
+        font-size: 0.76rem;
+        line-height: 1.45;
+    }
+
+    .hero-actions {
+        margin-top: 14px;
+        gap: 8px;
     }
 
     .hero-photo-panel {
-        max-width: 240px;
-        justify-self: center;
+        max-width: 120px;
+        justify-self: end;
         transform: none;
+        margin-top: 44px;
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    .hero-photo {
+        height: 160px;
+        object-fit: cover;
+        object-position: center top;
+        border-radius: 14px;
+    }
+
+    .hero-photo-panel.consult-photo-deal .hero-photo {
+        object-position: center 30%;
+    }
+
+    .btn {
+        padding: 8px 12px;
+        font-size: 0.82rem;
     }
 
     .skills-grid,
@@ -1085,9 +1156,100 @@ h1 {
         min-height: 460px;
     }
 
+    .tech-node img {
+        width: 34px;
+        height: 34px;
+    }
+
+    .tech-glyph {
+        width: 34px;
+        height: 34px;
+        font-size: 0.74rem;
+        box-shadow: none;
+    }
+
+    .tech-node[data-tech="rest-api"] img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .tech-node[data-tech="spring"] img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .tech-node[data-tech="groovy"] img,
+    .tech-node[data-tech="docker"] img {
+        transform: none;
+    }
+
+    .secondary-tool {
+        min-width: 62px;
+        min-height: 62px;
+        padding: 4px;
+    }
+
+    .secondary-tool img {
+        width: 34px;
+        height: 34px;
+    }
+
+    .secondary-glyph {
+        width: 34px;
+        height: 34px;
+        font-size: 0.74rem;
+    }
+
+    .logo-grid .ticker-track {
+        gap: 8px;
+    }
+
+    .logo-item {
+        min-height: 62px;
+        padding: 6px;
+        border-radius: 10px;
+    }
+
+    .logo-frame {
+        width: 84px;
+        height: 40px;
+        border-radius: 8px;
+        padding: 5px 6px;
+    }
+
+    .section-head h2 {
+        font-size: 1.15rem;
+    }
+
+    .card h3,
+    .capability-item h3,
+    .project-card h3,
+    .mission-card h3 {
+        font-size: 0.9rem;
+    }
+
     .learn-card {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
+    }
+
+    .hero-actions {
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+    .hero-actions .btn {
+        white-space: nowrap;
+    }
+
+    .consult-badge {
+        left: 8px;
+        bottom: 8px;
+        padding: 3px 7px;
+        font-size: 0.64rem;
+        max-width: calc(100% - 16px);
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }

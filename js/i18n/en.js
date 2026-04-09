@@ -18,8 +18,7 @@ window.i18nCatalogs.en = {
 		card2: { title: "Technology + business understanding", body: "I combine development and system configuration with client communication, requirements analysis, and post-deployment support." },
 		card3: { title: "Outcome-focused mindset", body: "I care about stability, clean solutions, and measurable impact on users' daily work." },
 		consultBadge: "Offline",
-		consultOnline: "Online",
-		consultNote: "Demo slot: this is where a humor-based hover easter egg can live."
+		consultOnline: "Online"
 	},
 	skills: {
 		title: "Capabilities",

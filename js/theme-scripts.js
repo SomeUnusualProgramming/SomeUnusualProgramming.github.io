@@ -12,7 +12,10 @@ var TECH_EASTER_EGG_SHOWN_KEY = "tech.easterEggShown.v1";
 var MISSIONS_STATE_KEY = "portfolio.missions.v1";
 var CONSULT_PHOTO_STATE_KEY = "portfolio.consultPhoto.v1";
 var CONSULT_PHOTO_UNTIL_KEY = "portfolio.consultPhotoUntil.v1";
-var CONSULT_PHOTO_DURATION_MS = 5 * 60 * 1000;
+var CONFIG = {
+	consultPhotoDurationMs: 5 * 60 * 1000,
+	consultActivationClicks: 5
+};
 window.techEasterEggState = {
 	hoverTimes: [],
 	activeUntil: 0,
@@ -132,7 +135,7 @@ function loadMissionsState() {
 	var base = {
 		boostOverheat: localStorage.getItem(TECH_EASTER_EGG_SHOWN_KEY) === "1",
 		learnWithAdam: false,
-		secretLogo: false,
+		consultMode: false,
 		rewardUnlocked: false
 	};
 	if (!raw) {
@@ -144,7 +147,7 @@ function loadMissionsState() {
 		window.missionsState = {
 			boostOverheat: !!parsed.boostOverheat || base.boostOverheat,
 			learnWithAdam: !!parsed.learnWithAdam,
-			secretLogo: !!parsed.secretLogo,
+			consultMode: !!parsed.consultMode || !!parsed.secretLogo,
 			rewardUnlocked: !!parsed.rewardUnlocked
 		};
 	} catch (e) {
@@ -166,7 +169,7 @@ function updateMissionsUI() {
 	var map = [
 		{ key: "boostOverheat", id: "mission-boost", cardId: "mission-card-boost" },
 		{ key: "learnWithAdam", id: "mission-learn", cardId: "mission-card-learn" },
-		{ key: "secretLogo", id: "mission-secret", cardId: "mission-card-secret" }
+		{ key: "consultMode", id: "mission-secret", cardId: "mission-card-secret" }
 	];
 	var done = 0;
 	map.forEach(function(item) {
@@ -189,7 +192,7 @@ function updateMissionsUI() {
 
 	var allDone = !!window.missionsState.boostOverheat &&
 		!!window.missionsState.learnWithAdam &&
-		!!window.missionsState.secretLogo;
+		!!window.missionsState.consultMode;
 
 	var claim = document.getElementById("mission-claim");
 	if (claim) {
@@ -199,11 +202,11 @@ function updateMissionsUI() {
 	var consultPanel = document.getElementById("consult-panel");
 	var consultBadge = document.getElementById("consult-badge");
 	if (consultPanel) {
-		consultPanel.classList.toggle("consult-online", !!window.missionsState.secretLogo);
+		consultPanel.classList.toggle("consult-online", !!window.missionsState.consultMode);
 	}
 	if (consultBadge) {
-		var badgeKey = window.missionsState.secretLogo ? "about.consultOnline" : "about.consultBadge";
-		var badgeFallback = window.missionsState.secretLogo ? "Online" : "Offline";
+		var badgeKey = window.missionsState.consultMode ? "about.consultOnline" : "about.consultBadge";
+		var badgeFallback = window.missionsState.consultMode ? "Online" : "Offline";
 		consultBadge.textContent = (typeof window.t === "function") ? window.t(badgeKey, badgeFallback) : badgeFallback;
 	}
 
@@ -305,28 +308,35 @@ function initConsultModeMission() {
 	}
 
 	badge.addEventListener("click", function() {
-		if (window.missionsState && window.missionsState.secretLogo) {
+		if (window.missionsState && window.missionsState.consultMode) {
 			return;
 		}
 		window.consultClickCount++;
-		if (window.consultClickCount >= 5) {
-			completeMission("secretLogo");
+		if (window.consultClickCount >= CONFIG.consultActivationClicks) {
+			completeMission("consultMode");
 		}
 	});
 }
 
 function setConsultPhoto(mode) {
 	var photo = document.querySelector("#consult-panel .hero-photo");
+	var panel = document.getElementById("consult-panel");
 	if (!photo) {
 		return;
 	}
 	if (mode === "deal") {
 		photo.src = "images/poggers.jpeg";
 		photo.dataset.photoMode = "deal";
+		if (panel) {
+			panel.classList.add("consult-photo-deal");
+		}
 		return;
 	}
 	photo.src = "images/mua.JPG";
 	photo.dataset.photoMode = "default";
+	if (panel) {
+		panel.classList.remove("consult-photo-deal");
+	}
 }
 
 function restoreConsultPhotoState() {
@@ -367,7 +377,7 @@ function initRewardContactUnlock() {
 			}
 			setConsultPhoto("deal");
 			localStorage.setItem(CONSULT_PHOTO_STATE_KEY, "deal");
-			localStorage.setItem(CONSULT_PHOTO_UNTIL_KEY, String(Date.now() + CONSULT_PHOTO_DURATION_MS));
+			localStorage.setItem(CONSULT_PHOTO_UNTIL_KEY, String(Date.now() + CONFIG.consultPhotoDurationMs));
 			scheduleConsultPhotoReset();
 			setTimeout(function() {
 				window.scrollTo({ top: 0, behavior: "smooth" });
@@ -562,24 +572,29 @@ function positionTechNodes(container) {
 	}
 
 	var bounds = container.getBoundingClientRect();
-	var nodeSize = nodes[0].offsetWidth || 72;
-	var padding = 14;
-	var minDistance = Math.max(90, nodeSize * 1.12);
-	var maxX = Math.max(padding + nodeSize * 0.5, bounds.width - nodeSize * 0.5 - padding);
-	var maxY = Math.max(padding + nodeSize * 0.5, bounds.height - nodeSize * 0.5 - padding);
+	var isMobile = window.matchMedia && window.matchMedia("(max-width: 720px)").matches;
+	var padding = isMobile ? 8 : 14;
+	var minDistanceFactor = isMobile ? 0.88 : 1.12;
 	var placed = [];
 	var physics = container.__techPhysics || { nodes: [], rafId: null, lastTs: 0 };
 	container.__techPhysics = physics;
 	physics.nodes = [];
 
 	nodes.forEach(function(node, index) {
-		var x = padding + nodeSize * 0.5;
-		var y = padding + nodeSize * 0.5;
+		var nodeSize = node.offsetWidth || 72;
+		var r = nodeSize * 0.5;
+		var minDistance = Math.max(isMobile ? 28 : 90, nodeSize * minDistanceFactor);
+		var minX = r + padding;
+		var maxX = Math.max(minX, bounds.width - r - padding);
+		var minY = r + padding;
+		var maxY = Math.max(minY, bounds.height - r - padding);
+		var x = minX;
+		var y = minY;
 		var attempts = 0;
 
 		while (attempts < 90) {
-			x = randomBetween(padding, maxX);
-			y = randomBetween(padding, maxY);
+			x = randomBetween(minX, maxX);
+			y = randomBetween(minY, maxY);
 			if (!isTooClose(x, y, placed, minDistance)) {
 				break;
 			}
@@ -587,11 +602,11 @@ function positionTechNodes(container) {
 		}
 
 		placed.push({ x: x, y: y });
-		node.style.left = (x - nodeSize * 0.5) + "px";
-		node.style.top = (y - nodeSize * 0.5) + "px";
-		node.style.setProperty("--trail-offset", (nodeSize * 0.42).toFixed(1) + "px");
+		node.style.left = (x - r) + "px";
+		node.style.top = (y - r) + "px";
+		node.style.setProperty("--trail-offset", (nodeSize * 0.36).toFixed(1) + "px");
 
-		var speed = randomBetween(42, 92);
+		var speed = isMobile ? randomBetween(54, 118) : randomBetween(42, 92);
 		var angle = randomBetween(0, Math.PI * 2);
 		physics.nodes[index] = {
 			el: node,
@@ -599,7 +614,7 @@ function positionTechNodes(container) {
 			y: y,
 			vx: Math.cos(angle) * speed,
 			vy: Math.sin(angle) * speed,
-			r: nodeSize * 0.5
+			r: r
 		};
 	});
 }
@@ -647,12 +662,15 @@ function runTechPhysics(container, timestamp) {
 	physics.lastTs = timestamp;
 
 	var bounds = container.getBoundingClientRect();
-	var padding = 12;
-	var maxSpeed = 340;
-	var minSpeed = 38;
-	var wallBoost = 1.1;
+	var isMobile = window.matchMedia && window.matchMedia("(max-width: 720px)").matches;
+	var padding = isMobile ? 8 : 12;
+	var maxSpeed = isMobile ? 280 : 340;
+	var minSpeed = isMobile ? 22 : 38;
+	var wallBoost = isMobile ? 1.03 : 1.1;
+	var repulsionFactor = isMobile ? 4.8 : 7.8;
 	var state = window.techEasterEggState;
 	var overheatNow = timestamp < (state.activeUntil || 0);
+	var damping = overheatNow ? (isMobile ? 0.984 : 0.988) : (isMobile ? 0.997 : 0.999);
 
 	// soft repulsion for close nodes
 	for (var i = 0; i < physics.nodes.length; i++) {
@@ -666,7 +684,7 @@ function runTechPhysics(container, timestamp) {
 			if (dist < minDist) {
 				var nx = dx / dist;
 				var ny = dy / dist;
-				var push = (minDist - dist) * 7.8;
+				var push = (minDist - dist) * repulsionFactor;
 				a.vx -= nx * push;
 				a.vy -= ny * push;
 				b.vx += nx * push;
@@ -679,8 +697,8 @@ function runTechPhysics(container, timestamp) {
 		if (n.el.classList.contains("tech-node-boom")) {
 			return;
 		}
-		n.vx *= overheatNow ? 0.988 : 0.999;
-		n.vy *= overheatNow ? 0.988 : 0.999;
+		n.vx *= damping;
+		n.vy *= damping;
 		n.x += n.vx * dt;
 		n.y += n.vy * dt;
 
@@ -759,7 +777,25 @@ function initTechSpaceInteractions(container) {
 		node.addEventListener("click", function() {
 			moveNodeToNewPosition(container, node, true);
 		});
+		node.addEventListener("touchstart", function() {
+			registerHoverActivity(container);
+			moveNodeToNewPosition(container, node, true);
+		}, { passive: true });
 	});
+
+	container.addEventListener("touchstart", function(event) {
+		var targetNode = event.target && event.target.closest ? event.target.closest(".tech-node") : null;
+		if (targetNode) {
+			return;
+		}
+		var list = Array.prototype.slice.call(container.querySelectorAll(".tech-node"));
+		if (list.length === 0) {
+			return;
+		}
+		var randomNode = list[Math.floor(Math.random() * list.length)];
+		registerHoverActivity(container);
+		moveNodeToNewPosition(container, randomNode, true);
+	}, { passive: true });
 
 	if (!window.__techSpaceResizeBound) {
 		window.__techSpaceResizeBound = true;
