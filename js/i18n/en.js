@@ -24,7 +24,11 @@ window.i18nCatalogs.en = {
 		card2: { title: "Integrations and data flow", body: "REST API integrations, data mapping, and maintaining consistency across systems." },
 		card3: { title: "System deployment and configuration", body: "Module configuration, testing, go-live activities, and post-deployment support." },
 		card4: { title: "Analysis and troubleshooting", body: "Debugging, issue analysis, and quick production stabilization." },
-		techTitle: "Technologies and tools"
+		techTitle: "Technologies and tools",
+		boost: "Boost",
+		easterEgg: "Nice, you made it this far - that means you are really testing the app.",
+		easterEggRepeat: "We can see you are still testing. Boost remains active.",
+		secondaryTitle: "Delivery and quality toolkit"
 	},
 	projects: {
 		title: "Selected projects",

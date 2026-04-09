@@ -1,23 +1,29 @@
 var marqueeData = {
-	technologies: [
+	coreTechnologies: [
 		{ name: "Groovy", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/groovy/groovy-original.svg" },
 		{ name: "Spring", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
-		{ name: "Maven", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/maven/maven-original.svg" },
-		{ name: "IntelliJ IDEA", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" },
+		{ name: "REST API", logo: "images/icons/rest.png" },
 		{ name: "Kafka", logo: "https://cdn.simpleicons.org/apachekafka/7C8CFF" },
-		{ name: "Postman", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" },
-		{ name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
-		{ name: "Sourcetree", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sourcetree/sourcetree-original.svg" },
-		{ name: "Jira", logo: "https://cdn.simpleicons.org/jira/2684FF" },
-		{ name: "Confluence", logo: "https://cdn.simpleicons.org/confluence/2684FF" },
 		{ name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
 		{ name: "Java", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
 		{ name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-		{ name: "MySQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
-		{ name: "Linux", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" },
-		{ name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+		{ name: "JavaScript", logo: "https://api.iconify.design/mdi/language-javascript.svg?color=%23F7DF1E" },
 		{ name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-		{ name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" }
+		{ name: "TypeScript", logo: "https://api.iconify.design/mdi/language-typescript.svg?color=%233178C6" },
+		{ name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" }
+	],
+	secondaryTools: [
+		{ name: "OpenAPI", logo: "https://cdn.simpleicons.org/openapiinitiative/6BA539" },
+		{ name: "AI", glyph: "AI", glyphClass: "glyph-ai-secondary" },
+		{ name: "Supabase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" },
+		{ name: "Maven", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/maven/maven-original.svg" },
+		{ name: "IntelliJ IDEA", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" },
+		{ name: "Postman", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" },
+		{ name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+		{ name: "Jira", logo: "https://cdn.simpleicons.org/jira/2684FF" },
+		{ name: "Confluence", logo: "https://cdn.simpleicons.org/confluence/2684FF" },
+		{ name: "MySQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
+		{ name: "Linux", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" }
 	],
 	companies: [
 		{ name: "Primaris", logo: "images/companies/Primaris.png" },
