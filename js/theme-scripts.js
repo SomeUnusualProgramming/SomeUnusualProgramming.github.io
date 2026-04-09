@@ -80,7 +80,7 @@ function renderLogoGrid(containerId, items) {
 		container.innerHTML = "";
 		return;
 	}
-	container.innerHTML = html;
+	container.innerHTML = '<div class="ticker-track">' + html + html + html + "</div>";
 }
 
 function renderTechSpace(items) {
@@ -91,21 +91,27 @@ function renderTechSpace(items) {
 
 	var html = items
 		.map(function(item, index) {
-			if (!item || !item.logo) {
+			if (!item || (!item.logo && !item.glyph)) {
 				return "";
 			}
 			var label = escapeHtml(item.name || "");
+			var techSlug = escapeHtml(String(item.name || "").toLowerCase().replace(/[^a-z0-9]+/g, "-"));
 			var logo = item.logo ? escapeHtml(item.logo) : "";
+			var glyph = item.glyph ? escapeHtml(item.glyph) : "";
+			var glyphClass = item.glyphClass ? escapeHtml(item.glyphClass) : "";
 			var delay = (index % 7) * 0.4;
 			var driftX = (Math.random() * 8 + 4).toFixed(2) + "px";
 			var driftY = (Math.random() * 10 + 5).toFixed(2) + "px";
 			var duration = (Math.random() * 3 + 4).toFixed(2) + "s";
+			var visual = logo
+				? '<img loading="lazy" src="' + logo + '" alt="' + label + ' logo">'
+				: '<span class="tech-glyph ' + glyphClass + '" aria-hidden="true">' + glyph + "</span>";
 			return (
 				'<button class="tech-node" style="animation-delay:' + delay + "s;" +
 				"--drift-x:" + driftX + ";" +
 				"--drift-y:" + driftY + ";" +
-				"--orbit-duration:" + duration + ';" aria-label="' + label + '">' +
-				'<img loading="lazy" src="' + logo + '" alt="' + label + ' logo">' +
+				"--orbit-duration:" + duration + ';" aria-label="' + label + '" data-tech="' + techSlug + '">' +
+				visual +
 				'<span class="tech-tooltip">' + label + "</span>" +
 				"</button>"
 			);
@@ -114,6 +120,22 @@ function renderTechSpace(items) {
 
 	container.innerHTML = html;
 	initTechSpaceInteractions(container);
+}
+
+function renderSecondaryTools(items) {
+	var container = document.getElementById("secondary-tools");
+	if (!container || !Array.isArray(items)) {
+		return;
+	}
+	var html = items
+		.filter(function(item) { return item && item.logo; })
+		.map(function(item) {
+			var label = escapeHtml(item.name || "");
+			var logo = escapeHtml(item.logo || "");
+			return '<span class="secondary-tool"><img loading="lazy" src="' + logo + '" alt="' + label + ' logo"></span>';
+		})
+		.join("");
+	container.innerHTML = html ? '<div class="ticker-track">' + html + html + html + "</div>" : "";
 }
 
 function randomBetween(min, max) {
@@ -235,7 +257,8 @@ function setCurrentYear() {
 
 renderProjects();
 if (window.marqueeData) {
-	renderTechSpace(window.marqueeData.technologies || []);
+	renderTechSpace(window.marqueeData.coreTechnologies || []);
+	renderSecondaryTools(window.marqueeData.secondaryTools || []);
 	renderLogoGrid("company-logos", window.marqueeData.companies || []);
 	renderLogoGrid("partner-logos", window.marqueeData.partners || []);
 }
@@ -243,5 +266,6 @@ setCurrentYear();
 
 window.renderProjects = renderProjects;
 window.renderTechSpace = renderTechSpace;
+window.renderSecondaryTools = renderSecondaryTools;
 window.renderLogoGrid = renderLogoGrid;
 window.setCurrentYear = setCurrentYear;

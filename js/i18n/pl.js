@@ -24,7 +24,8 @@ window.i18nCatalogs.pl = {
 		card2: { title: "Integracje i przepływ danych", body: "Integracje REST API, mapowanie danych i dbanie o spójność między systemami." },
 		card3: { title: "Wdrożenie systemów i konfiguracja", body: "Konfiguracja modułów, testy, uruchomienia i wsparcie po wdrożeniu." },
 		card4: { title: "Analiza i rozwiązywanie problemów", body: "Debugowanie, analiza błędów i szybkie stabilizowanie środowisk produkcyjnych." },
-		techTitle: "Technologie i narzędzia"
+		techTitle: "Technologie i narzędzia",
+		secondaryTitle: "Narzędzia i standardy pracy"
 	},
 	projects: {
 		title: "Wybrane projekty",
