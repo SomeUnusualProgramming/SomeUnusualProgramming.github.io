@@ -405,7 +405,20 @@ function renderProjects() {
 		return value || "";
 	}
 	var html = "";
-	window.projectsData.forEach(function(project) {
+	var orderedProjects = window.projectsData.slice().sort(function(a, b) {
+		function rank(project) {
+			var title = String(pickLocalized(project && project.title) || "").toLowerCase();
+			if (title.indexOf("tools for webmasters") >= 0) {
+				return 0;
+			}
+			if (title.indexOf("portfolio") >= 0) {
+				return 1;
+			}
+			return 2;
+		}
+		return rank(a) - rank(b);
+	});
+	orderedProjects.forEach(function(project) {
 		var projectTitle = pickLocalized(project.title);
 		var projectDescription = pickLocalized(project.description);
 		var projectStack = pickLocalized(project.stack);
