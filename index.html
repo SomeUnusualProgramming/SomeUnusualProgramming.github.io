@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Portfolio zawodowe - Adam Świerkosz">
+    <meta name="description" content="Portfolio zawodowe - Adam Świerkosz" data-i18n-content="meta.description">
     <title>Adam Świerkosz - Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,105 +19,114 @@
             <a class="brand" href="#top">Adam Świerkosz</a>
             <nav>
                 <ul class="nav-list">
-                    <li><a href="#about">O mnie</a></li>
-                    <li><a href="#skills">Kompetencje</a></li>
-                    <li><a href="#projects">Projekty</a></li>
-                    <li><a href="#contact">Kontakt</a></li>
+                    <li><a href="#about" data-i18n="nav.about">O mnie</a></li>
+                    <li><a href="#skills" data-i18n="nav.skills">Kompetencje</a></li>
+                    <li><a href="#projects" data-i18n="nav.projects">Projekty</a></li>
+                    <li><a href="#contact" data-i18n="nav.contact">Kontakt</a></li>
                 </ul>
             </nav>
+            <div class="language-switcher" aria-label="Language switcher">
+                <button id="lang-button" class="lang-button" type="button" aria-haspopup="true" aria-expanded="false">PL</button>
+                <div id="lang-menu" class="lang-menu" role="menu" hidden>
+                    <button type="button" class="lang-option" data-lang="pl">Polski</button>
+                    <button type="button" class="lang-option" data-lang="en">English</button>
+                    <button type="button" class="lang-option" data-lang="de">Deutsch</button>
+                    <button type="button" class="lang-option" data-lang="es">Español</button>
+                </div>
+            </div>
         </div>
     </header>
 
     <main id="top">
         <section class="hero container">
-            <p class="eyebrow">Portfolio zawodowe</p>
-            <h1>Wdrażam i rozwijam systemy biznesowe, łącząc solidny backend z praktycznym podejściem do potrzeb klienta.</h1>
-            <p class="lead">
+            <p class="eyebrow" data-i18n="hero.eyebrow">Portfolio zawodowe</p>
+            <h1 data-i18n="hero.title">Wdrażam i rozwijam systemy biznesowe, łącząc solidny backend z praktycznym podejściem do potrzeb klienta.</h1>
+            <p class="lead" data-i18n="hero.lead">
                 Pracuję end-to-end: od analizy wymagań i zaprojektowania rozwiązania, przez implementację i testy, po stabilne uruchomienie na produkcji.
             </p>
             <div class="hero-actions">
-                <a class="btn btn-primary" href="#projects">Zobacz projekty</a>
-                <a class="btn btn-secondary" href="#contact">Skontaktuj się</a>
+                <a class="btn btn-primary" href="#projects" data-i18n="hero.ctaProjects">Zobacz projekty</a>
+                <a class="btn btn-secondary" href="#contact" data-i18n="hero.ctaContact">Skontaktuj się</a>
             </div>
         </section>
 
         <section id="about" class="container section">
             <div class="section-head">
-                <h2>O mnie</h2>
+                <h2 data-i18n="about.title">O mnie</h2>
             </div>
             <div class="about-grid">
                 <article class="card">
-                    <h3>5+ lat odpowiedzialności produkcyjnej</h3>
-                    <p>Dowożę zmiany na systemach, które działają na co dzień w firmach i bezpośrednio wspierają procesy biznesowe.</p>
+                    <h3 data-i18n="about.card1.title">5+ lat odpowiedzialności produkcyjnej</h3>
+                    <p data-i18n="about.card1.body">Dowożę zmiany na systemach, które działają na co dzień w firmach i bezpośrednio wspierają procesy biznesowe.</p>
                 </article>
                 <article class="card">
-                    <h3>Technika + zrozumienie biznesu</h3>
-                    <p>Łączę pracę developerską i konfiguracyjną z rozmową z klientem, analizą wymagań i wsparciem po wdrożeniu.</p>
+                    <h3 data-i18n="about.card2.title">Technika + zrozumienie biznesu</h3>
+                    <p data-i18n="about.card2.body">Łączę pracę developerską i konfiguracyjną z rozmową z klientem, analizą wymagań i wsparciem po wdrożeniu.</p>
                 </article>
                 <article class="card">
-                    <h3>Skupienie na efekcie</h3>
-                    <p>Liczy się dla mnie stabilność, czytelność rozwiązania i realny wpływ na codzienną pracę użytkowników.</p>
+                    <h3 data-i18n="about.card3.title">Skupienie na efekcie</h3>
+                    <p data-i18n="about.card3.body">Liczy się dla mnie stabilność, czytelność rozwiązania i realny wpływ na codzienną pracę użytkowników.</p>
                 </article>
             </div>
         </section>
 
         <section id="skills" class="container section">
             <div class="section-head">
-                <h2>Kompetencje</h2>
+                <h2 data-i18n="skills.title">Kompetencje</h2>
             </div>
             <div class="capability-grid">
                 <div class="capability-item">
-                    <h3>Implementacja logiki biznesowej</h3>
-                    <p>Projektowanie i rozwój logiki systemowej dla procesów biznesowych.</p>
+                    <h3 data-i18n="skills.card1.title">Implementacja logiki biznesowej</h3>
+                    <p data-i18n="skills.card1.body">Projektowanie i rozwój logiki systemowej dla procesów biznesowych.</p>
                 </div>
                 <div class="capability-item">
-                    <h3>Integracje i przepływ danych</h3>
-                    <p>Integracje REST API, mapowanie danych i dbanie o spójność między systemami.</p>
+                    <h3 data-i18n="skills.card2.title">Integracje i przepływ danych</h3>
+                    <p data-i18n="skills.card2.body">Integracje REST API, mapowanie danych i dbanie o spójność między systemami.</p>
                 </div>
                 <div class="capability-item">
-                    <h3>Wdrożenie systemów i konfiguracja</h3>
-                    <p>Konfiguracja modułów, testy, uruchomienia i wsparcie po wdrożeniu.</p>
+                    <h3 data-i18n="skills.card3.title">Wdrożenie systemów i konfiguracja</h3>
+                    <p data-i18n="skills.card3.body">Konfiguracja modułów, testy, uruchomienia i wsparcie po wdrożeniu.</p>
                 </div>
                 <div class="capability-item">
-                    <h3>Analiza i rozwiązywanie problemów</h3>
-                    <p>Debugowanie, analiza błędów i szybkie stabilizowanie środowisk produkcyjnych.</p>
+                    <h3 data-i18n="skills.card4.title">Analiza i rozwiązywanie problemów</h3>
+                    <p data-i18n="skills.card4.body">Debugowanie, analiza błędów i szybkie stabilizowanie środowisk produkcyjnych.</p>
                 </div>
             </div>
 
             <div class="section-head stack-head">
-                <h2>Technologie i narzędzia</h2>
+                <h2 data-i18n="skills.techTitle">Technologie i narzędzia</h2>
             </div>
-            <div id="tech-space" class="tech-space" aria-label="Technologie i narzędzia"></div>
+            <div id="tech-space" class="tech-space" aria-label="Technologie i narzędzia" data-i18n-aria-label="skills.techTitle"></div>
         </section>
 
         <section id="projects" class="container section">
             <div class="section-head">
-                <h2>Wybrane projekty</h2>
-                <p>Realizacje związane z backendem, integracjami i wdrożeniami systemów biznesowych.</p>
+                <h2 data-i18n="projects.title">Wybrane projekty</h2>
+                <p data-i18n="projects.subtitle">Realizacje związane z backendem, integracjami i wdrożeniami systemów biznesowych.</p>
             </div>
             <div id="portfolio-list" class="projects-grid"></div>
         </section>
 
         <section id="companies" class="container section">
             <div class="section-head">
-                <h2>Firmy, w których realizowałem projekty</h2>
+                <h2 data-i18n="companies.title">Firmy, w których realizowałem projekty</h2>
             </div>
-            <div id="company-logos" class="logo-grid" aria-label="Firmy i organizacje"></div>
+            <div id="company-logos" class="logo-grid" aria-label="Firmy i organizacje" data-i18n-aria-label="companies.title"></div>
 
             <div class="section-head stack-head">
-                <h2>Firmy, z którymi współpracowałem</h2>
+                <h2 data-i18n="companies.partnersTitle">Firmy, z którymi współpracowałem</h2>
             </div>
-            <div id="partner-logos" class="logo-grid" aria-label="Firmy i projekty"></div>
+            <div id="partner-logos" class="logo-grid" aria-label="Firmy i projekty" data-i18n-aria-label="companies.partnersTitle"></div>
         </section>
 
         <section id="contact" class="container section contact">
             <div class="contact-card">
-                <h2>Skontaktuj się ze mną</h2>
-                <p>Jeśli szukasz osoby, która dowozi rozwiązania techniczne i jednocześnie rozumie potrzeby biznesowe, zapraszam do kontaktu.</p>
+                <h2 data-i18n="contact.title">Skontaktuj się ze mną</h2>
+                <p data-i18n="contact.subtitle">Jeśli szukasz osoby, która dowozi rozwiązania techniczne i jednocześnie rozumie potrzeby biznesowe, zapraszam do kontaktu.</p>
                 <div class="contact-links">
                     <a href="https://github.com/SomeUnusualProgramming" target="_blank" rel="noopener noreferrer">GitHub</a>
                     <a href="https://www.linkedin.com/in/adam-%C5%9Bwierkosz-3520b2162/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                    <a href="mailto:swierkosz.adam@gmail.com">E-mail</a>
+                    <a href="mailto:swierkosz.adam@gmail.com" data-i18n="contact.email">E-mail</a>
                 </div>
             </div>
         </section>
@@ -125,12 +134,17 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>© <span id="current-year"></span> Adam Świerkosz. Wszystkie prawa zastrzeżone.</p>
+            <p data-i18n="footer.rights">© <span id="current-year"></span> Adam Świerkosz. Wszystkie prawa zastrzeżone.</p>
         </div>
     </footer>
 
     <script src="js/marquee-data.js"></script>
     <script src="js/projects-data.js"></script>
+    <script src="js/i18n/pl.js"></script>
+    <script src="js/i18n/en.js"></script>
+    <script src="js/i18n/de.js"></script>
+    <script src="js/i18n/es.js"></script>
+    <script src="js/i18n.js"></script>
     <script src="js/theme-scripts.js"></script>
 </body>
 </html>
