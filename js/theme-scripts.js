@@ -10,6 +10,9 @@ function escapeHtml(value) {
 window.boostMode = false;
 var TECH_EASTER_EGG_SHOWN_KEY = "tech.easterEggShown.v1";
 var MISSIONS_STATE_KEY = "portfolio.missions.v1";
+var CONSULT_PHOTO_STATE_KEY = "portfolio.consultPhoto.v1";
+var CONSULT_PHOTO_UNTIL_KEY = "portfolio.consultPhotoUntil.v1";
+var CONSULT_PHOTO_DURATION_MS = 5 * 60 * 1000;
 window.techEasterEggState = {
 	hoverTimes: [],
 	activeUntil: 0,
@@ -17,7 +20,7 @@ window.techEasterEggState = {
 };
 window.missionsState = null;
 window.learnFactClicks = 0;
-window.brandClickCount = 0;
+window.consultClickCount = 0;
 window.learnFactsPool = [];
 window.learnFactsPoolLang = "";
 
@@ -184,11 +187,6 @@ function updateMissionsUI() {
 		}
 	});
 
-	var progress = document.getElementById("mission-progress-value");
-	if (progress) {
-		progress.textContent = done + "/3";
-	}
-
 	var allDone = !!window.missionsState.boostOverheat &&
 		!!window.missionsState.learnWithAdam &&
 		!!window.missionsState.secretLogo;
@@ -196,6 +194,17 @@ function updateMissionsUI() {
 	var claim = document.getElementById("mission-claim");
 	if (claim) {
 		claim.hidden = !(allDone && !window.missionsState.rewardUnlocked);
+	}
+
+	var consultPanel = document.getElementById("consult-panel");
+	var consultBadge = document.getElementById("consult-badge");
+	if (consultPanel) {
+		consultPanel.classList.toggle("consult-online", !!window.missionsState.secretLogo);
+	}
+	if (consultBadge) {
+		var badgeKey = window.missionsState.secretLogo ? "about.consultOnline" : "about.consultBadge";
+		var badgeFallback = window.missionsState.secretLogo ? "Online" : "Offline";
+		consultBadge.textContent = (typeof window.t === "function") ? window.t(badgeKey, badgeFallback) : badgeFallback;
 	}
 
 	applyRewardMode();
@@ -245,26 +254,125 @@ function initRewardClaim() {
 	if (!button) {
 		return;
 	}
+
+	function playRewardClaimEffect() {
+		var badge = document.getElementById("reward-badge");
+		if (!badge) {
+			return;
+		}
+		badge.classList.remove("reward-claim-animate");
+		void badge.offsetWidth;
+		badge.classList.add("reward-claim-animate");
+
+		for (var i = 0; i < 12; i++) {
+			var line = document.createElement("span");
+			line.className = "reward-confetti-line";
+			var angle = (360 / 12) * i + (Math.random() * 16 - 8);
+			var distance = 76 + Math.random() * 70;
+			line.style.setProperty("--confetti-angle", angle.toFixed(1) + "deg");
+			line.style.setProperty("--confetti-distance", distance.toFixed(1) + "px");
+			line.style.setProperty("--confetti-delay", (Math.random() * 0.14).toFixed(3) + "s");
+			badge.appendChild(line);
+			(function(node) {
+				setTimeout(function() {
+					if (node && node.parentNode) {
+						node.parentNode.removeChild(node);
+					}
+				}, 1300);
+			})(line);
+		}
+
+		setTimeout(function() {
+			badge.classList.remove("reward-claim-animate");
+		}, 1250);
+	}
+
 	button.addEventListener("click", function() {
 		if (!window.missionsState) {
 			return;
 		}
+		playRewardClaimEffect();
 		window.missionsState.rewardUnlocked = true;
 		saveMissionsState();
 		updateMissionsUI();
 	});
 }
 
-function initSecretLogoMission() {
-	var brand = document.querySelector(".brand");
-	if (!brand) {
+function initConsultModeMission() {
+	var badge = document.getElementById("consult-badge");
+	if (!badge) {
 		return;
 	}
-	brand.addEventListener("click", function() {
-		window.brandClickCount++;
-		if (window.brandClickCount >= 5) {
+
+	badge.addEventListener("click", function() {
+		if (window.missionsState && window.missionsState.secretLogo) {
+			return;
+		}
+		window.consultClickCount++;
+		if (window.consultClickCount >= 5) {
 			completeMission("secretLogo");
 		}
+	});
+}
+
+function setConsultPhoto(mode) {
+	var photo = document.querySelector("#consult-panel .hero-photo");
+	if (!photo) {
+		return;
+	}
+	if (mode === "deal") {
+		photo.src = "images/poggers.jpeg";
+		photo.dataset.photoMode = "deal";
+		return;
+	}
+	photo.src = "images/mua.JPG";
+	photo.dataset.photoMode = "default";
+}
+
+function restoreConsultPhotoState() {
+	var mode = localStorage.getItem(CONSULT_PHOTO_STATE_KEY);
+	var until = Number(localStorage.getItem(CONSULT_PHOTO_UNTIL_KEY) || 0);
+	var now = Date.now();
+	if (mode === "deal" && until > now) {
+		setConsultPhoto("deal");
+		return;
+	}
+	localStorage.removeItem(CONSULT_PHOTO_STATE_KEY);
+	localStorage.removeItem(CONSULT_PHOTO_UNTIL_KEY);
+	setConsultPhoto("default");
+}
+
+function scheduleConsultPhotoReset() {
+	var until = Number(localStorage.getItem(CONSULT_PHOTO_UNTIL_KEY) || 0);
+	var now = Date.now();
+	if (!until || until <= now) {
+		return;
+	}
+	setTimeout(function() {
+		localStorage.removeItem(CONSULT_PHOTO_STATE_KEY);
+		localStorage.removeItem(CONSULT_PHOTO_UNTIL_KEY);
+		setConsultPhoto("default");
+	}, until - now);
+}
+
+function initRewardContactUnlock() {
+	var links = document.querySelectorAll(".contact-links a");
+	if (!links || links.length === 0) {
+		return;
+	}
+	links.forEach(function(link) {
+		link.addEventListener("click", function() {
+			if (!window.missionsState || !window.missionsState.rewardUnlocked) {
+				return;
+			}
+			setConsultPhoto("deal");
+			localStorage.setItem(CONSULT_PHOTO_STATE_KEY, "deal");
+			localStorage.setItem(CONSULT_PHOTO_UNTIL_KEY, String(Date.now() + CONSULT_PHOTO_DURATION_MS));
+			scheduleConsultPhotoReset();
+			setTimeout(function() {
+				window.scrollTo({ top: 0, behavior: "smooth" });
+			}, 120);
+		});
 	});
 }
 
@@ -684,10 +792,13 @@ function setCurrentYear() {
 renderProjects();
 initBoostToggle();
 loadMissionsState();
+restoreConsultPhotoState();
+scheduleConsultPhotoReset();
 updateMissionsUI();
 initLearnWithAdam();
-initSecretLogoMission();
+initConsultModeMission();
 initRewardClaim();
+initRewardContactUnlock();
 if (window.marqueeData) {
 	renderTechSpace(window.marqueeData.coreTechnologies || []);
 	renderSecondaryTools(window.marqueeData.secondaryTools || []);

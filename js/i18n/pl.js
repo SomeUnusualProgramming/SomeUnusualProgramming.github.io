@@ -7,7 +7,7 @@ window.i18nCatalogs.pl = {
 	nav: { about: "O mnie", skills: "Kompetencje", projects: "Projekty", contact: "Kontakt" },
 	hero: {
 		eyebrow: "Portfolio zawodowe",
-		title: "Wdrażam i rozwijam systemy biznesowe, łącząc solidny backend z praktycznym podejściem do potrzeb klienta.",
+		title: "Buduję fundamenty nowoczesnego biznesu: solidny backend i rozwiązania skrojone pod użytkownika.",
 		lead: "Pracuję end-to-end: od analizy wymagań i zaprojektowania rozwiązania, przez implementację i testy, po stabilne uruchomienie na produkcji.",
 		ctaProjects: "Zobacz projekty",
 		ctaContact: "Skontaktuj się"
@@ -16,7 +16,10 @@ window.i18nCatalogs.pl = {
 		title: "O mnie",
 		card1: { title: "5+ lat odpowiedzialności produkcyjnej", body: "Dowożę zmiany na systemach, które działają na co dzień w firmach i bezpośrednio wspierają procesy biznesowe." },
 		card2: { title: "Technika + zrozumienie biznesu", body: "Łączę pracę developerską i konfiguracyjną z rozmową z klientem, analizą wymagań i wsparciem po wdrożeniu." },
-		card3: { title: "Skupienie na efekcie", body: "Liczy się dla mnie stabilność, czytelność rozwiązania i realny wpływ na codzienną pracę użytkowników." }
+		card3: { title: "Skupienie na efekcie", body: "Liczy się dla mnie stabilność, czytelność rozwiązania i realny wpływ na codzienną pracę użytkowników." },
+		consultBadge: "Offline",
+		consultOnline: "Online",
+		consultNote: "Wersja demo: tu możemy dodać humorystyczny easter egg oparty o hover i animację."
 	},
 	skills: {
 		title: "Kompetencje",
@@ -39,7 +42,7 @@ window.i18nCatalogs.pl = {
 		title: "Misje",
 		boost: "Napęd boost",
 		learn: "Strefa ciekawostek Adama",
-		secret: "Kliknij logo 5 razy",
+		secret: "Status konsultacji online",
 		progress: "Postęp:",
 		done: "Zaliczone",
 		todo: "Do zrobienia"
@@ -75,8 +78,8 @@ window.i18nCatalogs.pl = {
 		]
 	},
 	reward: {
-		title: "Odblokowano nagrodę: Złote Gacie Inżyniera",
-		subtitle: "Jeśli dotarłeś tutaj, to naprawdę testujesz aplikację. Szacunek.",
+		title: "Wygrałeś nagrodę!!!",
+		subtitle: "Żeby ją odblokować wybierz dowolną formę kontaktu :)",
 		claim: "Nagroda do odebrania.",
 		claimButton: "Odbierz nagrodę"
 	},

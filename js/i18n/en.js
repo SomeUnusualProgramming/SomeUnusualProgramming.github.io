@@ -16,7 +16,10 @@ window.i18nCatalogs.en = {
 		title: "About",
 		card1: { title: "5+ years of production ownership", body: "I deliver changes on systems used daily in organizations and directly supporting business processes." },
 		card2: { title: "Technology + business understanding", body: "I combine development and system configuration with client communication, requirements analysis, and post-deployment support." },
-		card3: { title: "Outcome-focused mindset", body: "I care about stability, clean solutions, and measurable impact on users' daily work." }
+		card3: { title: "Outcome-focused mindset", body: "I care about stability, clean solutions, and measurable impact on users' daily work." },
+		consultBadge: "Offline",
+		consultOnline: "Online",
+		consultNote: "Demo slot: this is where a humor-based hover easter egg can live."
 	},
 	skills: {
 		title: "Capabilities",
@@ -39,7 +42,7 @@ window.i18nCatalogs.en = {
 		title: "Missions",
 		boost: "Boost drive",
 		learn: "Adam's fact zone",
-		secret: "Click the logo 5 times",
+		secret: "Consult status online",
 		progress: "Progress:",
 		done: "Completed",
 		todo: "To do"
@@ -64,8 +67,8 @@ window.i18nCatalogs.en = {
 		]
 	},
 	reward: {
-		title: "Reward unlocked: Golden Engineer Shorts",
-		subtitle: "If you made it here, you are actually testing the app. Respect.",
+		title: "You won a reward!!!",
+		subtitle: "To unlock it, click the contact icon :)",
 		claim: "Reward ready to claim.",
 		claimButton: "Claim reward"
 	},

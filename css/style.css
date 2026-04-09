@@ -149,6 +149,13 @@ a {
     padding: 96px 0 48px;
 }
 
+.hero-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    align-items: center;
+    gap: 22px;
+}
+
 .eyebrow {
     display: inline-flex;
     border: 1px solid var(--line);
@@ -178,6 +185,24 @@ h1 {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
+}
+
+.hero-photo-panel {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    background: transparent;
+    justify-self: start;
+    transform: translateX(-12px);
+}
+
+.hero-photo {
+    width: 100%;
+    height: 340px;
+    object-fit: contain;
+    object-position: center top;
+    opacity: 0.82;
+    display: block;
 }
 
 .btn {
@@ -253,6 +278,36 @@ h1 {
 .card p {
     margin: 0;
     color: var(--muted);
+}
+
+.consult-badge {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    z-index: 1;
+    border: 1px solid rgba(126, 255, 188, 0.45);
+    background: rgba(43, 113, 75, 0.45);
+    color: #dcffea;
+    border-radius: 999px;
+    padding: 6px 11px;
+    font-size: 0.78rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.consult-badge:hover {
+    background: rgba(43, 113, 75, 0.62);
+    border-color: rgba(126, 255, 188, 0.72);
+}
+
+.consult-badge:active {
+    transform: translateY(1px);
+}
+
+.hero-photo-panel.consult-online .consult-badge {
+    background: rgba(74, 172, 116, 0.68);
+    color: #e8fff2;
 }
 
 .skills-grid {
@@ -656,10 +711,10 @@ h1 {
 
 .missions-board {
     margin-top: 12px;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.03);
-    padding: 12px 14px;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    padding: 0;
 }
 
 .mission-grid {
@@ -695,13 +750,6 @@ h1 {
     color: #8af2ba;
 }
 
-.mission-progress {
-    margin-top: 8px;
-    color: #b8c7ec;
-    font-size: 0.92rem;
-    grid-column: 1 / -1;
-}
-
 .mission-claim {
     grid-column: 1 / -1;
     border: 1px solid rgba(244, 196, 48, 0.35);
@@ -725,14 +773,19 @@ h1 {
 
 .learn-card {
     margin-top: 12px;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.03);
-    padding: 14px;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
 }
 
 .learn-card p {
-    margin: 0 0 12px 0;
+    margin: 0;
+    color: #cfd9f6;
+    min-height: 20px;
 }
 
 .reward-badge {
@@ -741,16 +794,75 @@ h1 {
     background: rgba(244, 196, 48, 0.1);
     border-radius: 14px;
     padding: 12px 14px;
+    position: relative;
+    overflow: hidden;
 }
 
 .reward-badge h3 {
     margin: 0 0 6px 0;
     color: #ffe38a;
+    text-align: center;
 }
 
 .reward-badge p {
     margin: 0;
     color: #f6e6b5;
+    text-align: center;
+}
+
+.reward-badge.reward-claim-animate {
+    animation: rewardPulseGold 1.1s ease-out;
+}
+
+.reward-badge.reward-claim-animate:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255, 230, 141, 0.45), rgba(255, 230, 141, 0.06) 60%, transparent 72%);
+    animation: rewardFlash 0.9s ease-out;
+    pointer-events: none;
+}
+
+.reward-confetti-line {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 3px;
+    height: 18px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #fff4bf, #f3c143);
+    transform: translate(-50%, -50%) rotate(var(--confetti-angle));
+    transform-origin: center center;
+    animation: rewardConfettiFly 0.95s ease-out forwards;
+    animation-delay: var(--confetti-delay, 0s);
+    pointer-events: none;
+    box-shadow: 0 0 8px rgba(255, 227, 134, 0.45);
+}
+
+@keyframes rewardPulseGold {
+    0% { transform: scale(1); }
+    28% { transform: scale(1.018); }
+    100% { transform: scale(1); }
+}
+
+@keyframes rewardFlash {
+    0% { opacity: 0; }
+    18% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes rewardConfettiFly {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--confetti-angle)) translateY(0) scale(0.7);
+    }
+    18% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--confetti-angle)) translateY(calc(-1 * var(--confetti-distance, 120px))) scale(1);
+    }
 }
 
 .secondary-glyph {
@@ -912,6 +1024,16 @@ h1 {
 }
 
 @media (max-width: 980px) {
+    .hero-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-photo-panel {
+        max-width: 300px;
+        justify-self: start;
+        transform: none;
+    }
+
     .mission-grid {
         grid-template-columns: 1fr;
     }
@@ -946,6 +1068,12 @@ h1 {
         padding-top: 66px;
     }
 
+    .hero-photo-panel {
+        max-width: 240px;
+        justify-self: center;
+        transform: none;
+    }
+
     .skills-grid,
     .capability-grid,
     .about-grid,
@@ -955,5 +1083,11 @@ h1 {
 
     .tech-space {
         min-height: 460px;
+    }
+
+    .learn-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
     }
 }
